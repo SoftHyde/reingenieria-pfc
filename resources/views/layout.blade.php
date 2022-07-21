@@ -113,7 +113,7 @@
     @yield('content')
 
     <footer class="footer" style="background-color: #f0f0f0;">
-      &copy; 2017 Jerónimo Calace Montú
+      &copy; 2022 Lucas Rios | Eric Priemer
     </footer>
 
   </body>
