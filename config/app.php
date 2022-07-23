@@ -134,6 +134,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -200,6 +201,7 @@ return [
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
 
 
     ],

@@ -26,38 +26,38 @@ Route::get('/', [
 
 //Login
 Route::get('iniciar-sesion', [
-	'uses' => 'Auth\AuthController@getLogin',
+	'uses' => 'Auth\LoginController@ShowLoginForm',
 	'as' => 'login'
 	]);
 
-Route::post('iniciar-sesion', 'Auth\AuthController@postLogin');
+Route::post('iniciar-sesion',['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
 
 Route::get('cerrar-sesion', [
-	'uses' => 'Auth\AuthController@getLogout',
+	'uses' => 'Auth\LoginController@logout',
 	'as' => 'logout'
 	]);
 
 
 //Registro
 Route::get('registro', [
-	'uses' => 'Auth\AuthController@getRegister',
+	'uses' => 'Auth\RegisterController@showRegistrationForm',
 	'as' => 'register'
 	]);
 
-Route::post('registro', 'Auth\AuthController@postRegister');
+Route::post('registro',['as' => 'register.post','uses'=> 'Auth\RegisterController@register']);
 
 Route::get('confirmation/{token}', [
-	'uses' => 'Auth\AuthController@getConfirmation',
+	'uses' => 'Auth\RegisterController@getConfirmation',
 	'as' => 'confirmation'
 	]);
 
 
 //Recuperar contraseña
-Route::get('password/email', 'Auth\PasswordController@getEmail');
-Route::post('password/email', 'Auth\PasswordController@postEmail');
+Route::get('password/email', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 
-Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-Route::post('password/reset', 'Auth\PasswordController@postReset');
+Route::get('password/reset/{token}', 'Auth\ResetPaswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPaswordController@reset');
 
 
 //Login con redes sociales
