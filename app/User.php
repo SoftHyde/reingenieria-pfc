@@ -76,7 +76,7 @@ class User extends Authenticatable
 
     //return array of polls ids
     public function polls(){
-        return $this->votes()->lists('poll_id')->toArray();
+        return $this->votes()->pluck('poll_id')->toArray();
     }
 
     public function ratings(){
@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     //return array of works ids
     public function ratedWorks(){
-        return $this->ratings()->lists('work_id')->toArray();
+        return $this->ratings()->pluck('work_id')->toArray();
     }    
 
     public function getIsAdminAttribute()

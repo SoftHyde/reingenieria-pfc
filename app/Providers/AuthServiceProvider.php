@@ -78,7 +78,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('support_proposal',function($user, $supporters){
             if (auth()->check()){
-                return !in_array($user->id, $supporters->lists('user_id')->toArray());
+                return !in_array($user->id, $supporters->pluck('user_id')->toArray());
             }
             else {
                 return false;
@@ -87,7 +87,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('like_comment',function($user, $comment){
             if (auth()->check()){
-                return !in_array($user->id, $comment->likers()->lists('user_id')->toArray());
+                return !in_array($user->id, $comment->likers()->pluck('user_id')->toArray());
             }
             else {
                 return false;

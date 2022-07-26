@@ -147,7 +147,7 @@ class CommentController extends Controller
 
         $user = auth()->user();
         $comment   = Comment::findOrFail($request->get('comment_id'));
-        $likers = $comment->likers()->lists('user_id')->toArray();
+        $likers = $comment->likers()->pluck('user_id')->toArray();
 
 
         if ( in_array($user->id, $likers) ) {
@@ -169,7 +169,7 @@ class CommentController extends Controller
 
         $user = auth()->user();
         $comment   = Comment::findOrFail($request->get('comment_id'));
-        $likers = $comment->likers()->lists('user_id')->toArray();
+        $likers = $comment->likers()->pluck('user_id')->toArray();
 
         if ( ! in_array($user->id, $likers) ) {
             return redirect()->back()
