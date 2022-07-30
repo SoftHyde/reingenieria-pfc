@@ -10,13 +10,14 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+Use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'password' => bcrypt(Str::random(10)),
+        'remember_token' => Str::random(10),
         'role' => 'general',
         'ban_reason' => null,
     ];
