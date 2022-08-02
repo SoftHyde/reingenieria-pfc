@@ -19,6 +19,7 @@
 
 			<form role="form" method="POST" enctype="multipart/form-data" action="{{ route('user.postcreate') }}">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				{!! htmlScriptTagJsApi(['action' => 'homepage']) !!}
 
 				<div class="form-group">
 					<label class="control-label">@lang('validation.attributes.name')</label>
@@ -50,9 +51,9 @@
 					<input type="password" class="form-control" name="password_confirmation">
 				</div>
 
-				<div class="form-group">
+				{{-- <div class="form-group">
 					{!! Recaptcha::render() !!}
-				</div>
+				</div> --}}
 
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">
