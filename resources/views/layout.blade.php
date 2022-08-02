@@ -41,6 +41,8 @@
     <!-- css local -->
     <link rel="stylesheet" type="text/css" href="/css/app.css?v=<?=time();?>"/> 
 
+    
+
     @yield('styles')
 
   </head>
@@ -147,6 +149,7 @@
             SocialShareKit.init();
         });
     </script>
+    
 
     @yield('scripts')
 

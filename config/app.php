@@ -145,7 +145,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
-        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        //Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
 
@@ -198,7 +199,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
-        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        //'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,

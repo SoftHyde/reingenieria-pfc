@@ -12,7 +12,8 @@
         "laravel/socialite": "^4.0",
         "pragmarx/tracker": "^3.1",
         "doctrine/dbal": "^2.5",
-        "geoip/geoip": "~1.14"
+        "geoip/geoip": "~1.14",
+        "biscolab/laravel-recaptcha": "^4.4"
        
     },
     "require-dev": {

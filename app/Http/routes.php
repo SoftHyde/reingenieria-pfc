@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Http\Request;
 use App\Poll;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -17,6 +18,7 @@ use App\Poll;
 // Usuarios no autenticados
 
 //Inicio
+
 Route::get('/', [
 	'uses' => 'HomeController@index',
 	'as' => 'home'
