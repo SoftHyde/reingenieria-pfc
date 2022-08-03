@@ -6,18 +6,17 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^9.0",
         "intervention/image": "^2.3",
         "laravel/socialite": "^5.0",
-        "pragmarx/tracker": "^4.0",
         "doctrine/dbal": "^2.5",
         "geoip/geoip": "~1.14",
-        "biscolab/laravel-recaptcha": "^4.4",
+        "biscolab/laravel-recaptcha": "^5.0",
         "laravel/ui": "^3.0"
        
     },
     "require-dev": {
-        "symfony/finder": "^5.0",
+        "symfony/finder": "^6.0",
         "symfony/dom-crawler":"3.1.*",
         "symfony/css-selector":"3.1.*",
         "fzaninotto/faker": "~1.4",

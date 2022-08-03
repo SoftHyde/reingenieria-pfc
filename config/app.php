@@ -108,6 +108,25 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Mode Driver
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the driver used to determine and
+    | manage Laravel's "maintenance mode" status. The "cache" driver will
+    | allow maintenance mode to be controlled across multiple machines.
+    |
+    | Supported drivers: "file", "cache"
+    |
+    */
+
+    'maintenance' => [
+        'driver' => 'file',
+        // 'store'  => 'redis',
+    ],
+
+
     'providers' => [
 
         /*
@@ -148,7 +167,7 @@ return [
         //Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
+        //PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
 
     ],
 
@@ -202,7 +221,7 @@ return [
         //'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
+        //'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
 
 

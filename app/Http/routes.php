@@ -18,6 +18,9 @@ use App\Poll;
 // Usuarios no autenticados
 
 //Inicio
+Route::get('/hola', function () {
+    return 'Hello World';
+});
 
 Route::get('/', [
 	'uses' => 'HomeController@index',
@@ -58,8 +61,9 @@ Route::get('confirmation/{token}', [
 Route::get('password/email', 'Auth\ForgotPasswordController@showLinkRequestForm');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 
-Route::get('password/reset/{token}', 'Auth\ResetPaswordController@showResetForm');
-Route::post('password/reset', 'Auth\ResetPaswordController@reset');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+//Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('password/reset', 'Auth\ResetPasswordController@showResetForm');
 
 
 //Login con redes sociales
