@@ -58,12 +58,12 @@ Route::get('confirmation/{token}', [
 
 
 //Recuperar contraseña
-Route::get('password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email');;
+Route::get('password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 
 
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
-Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
+Route::get('password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
 
 
 //Login con redes sociales
