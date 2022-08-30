@@ -23,6 +23,9 @@ class Action extends Model
 
     public function proposals(){
 
+
+
+        
         return $this->hasMany(Proposal::class);
     }
 

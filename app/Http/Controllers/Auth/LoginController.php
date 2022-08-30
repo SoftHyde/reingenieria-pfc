@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+// use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\Providers\RouteServiceProvider;
@@ -39,5 +41,14 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
         
     }
+
+    public function validateLogin(Request $request)
+         {
+            $this->validate($request,[
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+            ]);
+        }
+    
 
 }
