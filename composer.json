@@ -6,24 +6,19 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "5.1.*",
         "intervention/image": "^2.3",
-        "laravel/socialite": "^5.0",
+        "greggilbert/recaptcha": "dev-master",
+        "laravel/socialite": "2.0.*@dev",
+        "pragmarx/tracker": "^3.1",
         "doctrine/dbal": "^2.5",
-        "geoip/geoip": "~1.14",
-        "biscolab/laravel-recaptcha": "^5.0",
-        "laravel/ui": "^3.0"
-       
+        "geoip/geoip": "~1.14"
     },
     "require-dev": {
-        "symfony/finder": "^6.0",
-        "symfony/dom-crawler":"3.1.*",
-        "symfony/css-selector":"3.1.*",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "^9.0",
-        "phpspec/phpspec": "^7.2",
-        "filp/whoops": "~2.0"
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1"
     },
     "autoload": {
         "classmap": [
@@ -45,19 +40,16 @@
         "post-create-project-cmd": [
             "php artisan key:generate"
         ],
-       
-                
-        "post-autoload-dump": [
-           "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-           "@php artisan package:discover"
-            ]
-        
-
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan optimize"
+        ]
     },
     "config": {
-        "preferred-install": "dist",
-        "allow-plugins": {
-            "kylekatarnls/update-helper": true
-        }
+        "preferred-install": "dist"
     }
 }

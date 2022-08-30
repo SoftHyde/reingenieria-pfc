@@ -94,16 +94,16 @@
 					<div class="col-md-4" align="center">
 						<!-- Calificaciones -->
 						<h2>
-							{{round(array_sum($work->ratings->pluck('stars')->toArray())/count($work->ratings),2)}}/5
+							{{round(array_sum($work->ratings->lists('stars')->toArray())/count($work->ratings),2)}}/5
 						</h2>
 					</div>
 					<div class="col-md-4" align="center">
 						<h2>
-							@for($i=0; $i < round(array_sum($work->ratings->pluck('stars')->toArray())/count($work->ratings)); $i++)
+							@for($i=0; $i < round(array_sum($work->ratings->lists('stars')->toArray())/count($work->ratings)); $i++)
 								<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 							@endfor
 
-							@for($i= round(array_sum($work->ratings->pluck('stars')->toArray())/count($work->ratings)); $i< 5; $i++)
+							@for($i= round(array_sum($work->ratings->lists('stars')->toArray())/count($work->ratings)); $i< 5; $i++)
 								<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 							@endfor
 						</h2>

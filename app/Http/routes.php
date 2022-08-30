@@ -1,7 +1,6 @@
 <?php
 use Illuminate\Http\Request;
 use App\Poll;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -18,10 +17,6 @@ use App\Poll;
 // Usuarios no autenticados
 
 //Inicio
-Route::get('/hola', function () {
-    return 'Hello World';
-});
-
 Route::get('/', [
 	'uses' => 'HomeController@index',
 	'as' => 'home'
@@ -31,39 +26,38 @@ Route::get('/', [
 
 //Login
 Route::get('iniciar-sesion', [
-	'uses' => 'Auth\LoginController@ShowLoginForm',
+	'uses' => 'Auth\AuthController@getLogin',
 	'as' => 'login'
 	]);
 
-Route::post('iniciar-sesion',['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
+Route::post('iniciar-sesion', 'Auth\AuthController@postLogin');
 
 Route::get('cerrar-sesion', [
-	'uses' => 'Auth\LoginController@logout',
+	'uses' => 'Auth\AuthController@getLogout',
 	'as' => 'logout'
 	]);
 
 
 //Registro
 Route::get('registro', [
-	'uses' => 'Auth\RegisterController@showRegistrationForm',
+	'uses' => 'Auth\AuthController@getRegister',
 	'as' => 'register'
 	]);
 
-Route::post('registro',['as' => 'register.post','uses'=> 'Auth\RegisterController@register']);
+Route::post('registro', 'Auth\AuthController@postRegister');
 
 Route::get('confirmation/{token}', [
-	'uses' => 'Auth\RegisterController@getConfirmation',
+	'uses' => 'Auth\AuthController@getConfirmation',
 	'as' => 'confirmation'
 	]);
 
 
 //Recuperar contraseña
-Route::get('password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
 
-
-Route::get('password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
 //Login con redes sociales

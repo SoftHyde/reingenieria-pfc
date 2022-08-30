@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Poll;
-//use Illuminate\Support\Facades\auth;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,12 +23,12 @@ class AuthServiceProvider extends ServiceProvider
      * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
      * @return void
      */
-    public function boot()
+    public function boot(GateContract $gate)
     {
-        $this->registerPolicies();
+        $this->registerPolicies($gate);
 
         
-        Gate::define('admin',function($user){
+        $gate->define('admin',function($user){
             if (auth()->check()){
                 return $user->role == 'admin';
             }
@@ -39,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('admin_action',function($user, $admin_id){
+        $gate->define('admin_action',function($user, $admin_id){
             if (auth()->check()){
                 return $user->id == $admin_id or $user->role == 'admin';
             }
@@ -48,7 +46,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('edit_proposal',function($user, $proposal){
+        $gate->define('edit_proposal',function($user, $proposal){
             if (auth()->check()){
                 return ($user->id == $proposal->user_id) or ($user->id == $proposal->action->admin_id) or ($user->role == 'admin');
             }
@@ -57,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('edit_comment',function($user, $comment){
+        $gate->define('edit_comment',function($user, $comment){
             if (auth()->check()){
                 return ($user->id == $comment->user_id) or ($user->id == $comment->proposal->action->admin_id) or ($user->role == 'admin');
             }
@@ -66,7 +64,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('vote',function($user, $poll_id){
+        $gate->define('vote',function($user, $poll_id){
             $poll = Poll::findOrFail($poll_id);
             if (auth()->check()){
                 return !in_array($poll_id, $user->polls()) and $poll->opened();
@@ -76,25 +74,25 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('support_proposal',function($user, $supporters){
+        $gate->define('support_proposal',function($user, $supporters){
             if (auth()->check()){
-                return !in_array($user->id, $supporters->pluck('user_id')->toArray());
+                return !in_array($user->id, $supporters->lists('user_id')->toArray());
             }
             else {
                 return false;
             }
         });
 
-        Gate::define('like_comment',function($user, $comment){
+        $gate->define('like_comment',function($user, $comment){
             if (auth()->check()){
-                return !in_array($user->id, $comment->likers()->pluck('user_id')->toArray());
+                return !in_array($user->id, $comment->likers()->lists('user_id')->toArray());
             }
             else {
                 return false;
             }
         });
 
-        Gate::define('rate',function($user, $work_id){
+        $gate->define('rate',function($user, $work_id){
             if (auth()->check()){
                 return !in_array($work_id, $user->ratedWorks());
             }
@@ -103,7 +101,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('config_profile',function($user, $profile_id){
+        $gate->define('config_profile',function($user, $profile_id){
             if (auth()->check()){
                 return ($user->id == $profile_id) or ($user->role == 'admin');
             }
@@ -112,7 +110,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('edit_profile',function($user, $profile_id){
+        $gate->define('edit_profile',function($user, $profile_id){
             if (auth()->check()){
                 return ($user->id == $profile_id);
             }

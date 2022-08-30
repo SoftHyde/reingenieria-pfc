@@ -41,8 +41,6 @@
     <!-- css local -->
     <link rel="stylesheet" type="text/css" href="/css/app.css?v=<?=time();?>"/> 
 
-    
-
     @yield('styles')
 
   </head>
@@ -115,7 +113,7 @@
     @yield('content')
 
     <footer class="footer" style="background-color: #f0f0f0;">
-      &copy; 2022 Lucas Rios | Eric Priemer
+      &copy; 2017 Jerónimo Calace Montú
     </footer>
 
   </body>
@@ -149,7 +147,6 @@
             SocialShareKit.init();
         });
     </script>
-    
 
     @yield('scripts')
 

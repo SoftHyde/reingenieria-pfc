@@ -45,7 +45,7 @@ class ProposalController extends Controller
         $action     = $proposal->action;
         $creator    = $proposal->user;
         $comments   = $proposal->comments()->paginate();
-        $supporters = $proposal->supporters->pluck('user_id')->toArray();
+        $supporters = $proposal->supporters->lists('user_id')->toArray();
 
         return view('proposals/proposal', compact('proposal', 'creator', 'action', 'comments', 'supporters'));
     }
@@ -141,7 +141,7 @@ class ProposalController extends Controller
 
         $user = auth()->user();
         $proposal   = Proposal::findOrFail($request->get('proposal_id'));
-        $supporters = $proposal->supporters()->pluck('user_id')->toArray();
+        $supporters = $proposal->supporters()->lists('user_id')->toArray();
 
 
         if ( in_array($user->id, $supporters) ) {
@@ -158,7 +158,7 @@ class ProposalController extends Controller
 
         $user = auth()->user();
         $proposal   = Proposal::findOrFail($request->get('proposal_id'));
-        $supporters = $proposal->supporters()->pluck('user_id')->toArray();
+        $supporters = $proposal->supporters()->lists('user_id')->toArray();
 
         if ( ! in_array($user->id, $supporters) ) {
             return redirect()->back()

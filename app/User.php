@@ -1,6 +1,6 @@
 <?php
 
-/* namespace App;
+namespace App;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -14,15 +14,7 @@ class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword; */
-    namespace App;
-
-    use Illuminate\Notifications\Notifiable;
-    use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable
-{
-    use Notifiable;
+    use Authenticatable, Authorizable, CanResetPassword;
 
     /**
      * The database table used by the model.
@@ -76,7 +68,7 @@ class User extends Authenticatable
 
     //return array of polls ids
     public function polls(){
-        return $this->votes()->pluck('poll_id')->toArray();
+        return $this->votes()->lists('poll_id')->toArray();
     }
 
     public function ratings(){
@@ -85,7 +77,7 @@ class User extends Authenticatable
 
     //return array of works ids
     public function ratedWorks(){
-        return $this->ratings()->pluck('work_id')->toArray();
+        return $this->ratings()->lists('work_id')->toArray();
     }    
 
     public function getIsAdminAttribute()

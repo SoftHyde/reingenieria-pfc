@@ -35,7 +35,7 @@
 			<p>O con su correo electrónico:</p>
 			<form role="form" method="POST" action="{{ route('register') }}">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-				{!! htmlScriptTagJsApi(['action' => 'homepage']) !!}
+
 				<div class="form-group">
 					<label class="control-label">@lang('validation.attributes.name')</label>
 					<input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -69,10 +69,10 @@
 					<label class="control-label">@lang('validation.attributes.password_confirmation')</label>
 					<input type="password" class="form-control" name="password_confirmation">
 				</div>
-				{{-- 
+
 				<div class="form-group">
 					{!! Recaptcha::render() !!}
-				</div> --}}
+				</div>
 
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">
