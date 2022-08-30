@@ -13,6 +13,9 @@ class Comment extends Model
      */
     protected $perPage = 10;
 
+
+
+    
      /**
      * The table associated with the model.
      *
