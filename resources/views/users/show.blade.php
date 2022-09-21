@@ -163,7 +163,7 @@
 								<br>
 								<small>{{$comment->updated_at}}</small>
 								<br>
-								<div class="proposal-comment">{!! nl2br($comment->comment) !!}</div>
+								<div class="proposal-comment">{{$comment->comment}}</div>
 								<hr>
 								<div align="right">
 									<i class="fa fa-heart" aria-hidden="true" style="color: #ff5555;"></i>
@@ -191,7 +191,7 @@
 									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 								@endfor
 								<br>
-								<div class="proposal-comment">{!! nl2br($rating->comment) !!}</div>
+								<div class="proposal-comment">{{$rating->comment}}</div>
 								<hr>
 								<div class="pull-right">
 									En <a href="{{ route('works', $rating->work->id )}}">{{ $rating->work->title }}</a>

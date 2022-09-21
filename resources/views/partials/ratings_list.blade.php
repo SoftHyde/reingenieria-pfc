@@ -8,7 +8,7 @@
 				<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 			@endfor
 			<br>
-			<div class="proposal-comment">{!! nl2br($rating->comment) !!}</div>
+			<div class="proposal-comment">{{$rating->comment}}</div>
 			<hr>
 			<div class="row">
 				<div class="col col-md-3 col-md-offset-8" align="right">

@@ -172,10 +172,10 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			@include('partials/success')
-	  		<p>{!! nl2br($action->description) !!}</p>
+	  		<p>{{$action->description}}</p>
 	  		@if($action->howto)
 	  			<h3>¿Cómo participo?</h3>
-	  			<p>{!! nl2br($action->howto) !!}</p>
+	  			<p>{{$action->howto}}</p>
 	  		@endif
 
 	  		@if(count($action->newvents())>0)

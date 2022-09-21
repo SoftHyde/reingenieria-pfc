@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Support\Facades\Schema;
 class CreateWorksTable extends Migration
 {
     /**
@@ -14,7 +14,6 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
-
             $table->string('title');
             $table->longText('content');
 

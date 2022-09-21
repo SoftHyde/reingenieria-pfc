@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
 class CreateActionsTable extends Migration
 {
@@ -14,7 +15,6 @@ class CreateActionsTable extends Migration
     {
         Schema::create('actions', function (Blueprint $table) {
             $table->increments('id');
-
             $table->string('title')->unique();
             $table->longText('description');
             $table->longText('howto');
@@ -27,7 +27,6 @@ class CreateActionsTable extends Migration
             $table->string('avatar')->default('/images/action.jpg');
             $table->integer('admin_id')->unsigned()->nullable();
             $table->foreign('admin_id')->references('id')->on('users')->onDelete('set null');
-
             $table->timestamps();
         });
     }

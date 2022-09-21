@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('avatar')->default('/images/profile.jpg');
             $table->string('password', 60);
-            $table->enum('role', ['general', 'admin', 'action_admin']);
+            $table->enum('role', ['general', 'admin', 'action_admin'])->default('general');
             $table->string('registration_token')->nullable();
             $table->longText('ban_reason')->nullable()->default(null);
             $table->rememberToken();

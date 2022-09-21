@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserTableSeeder extends Seeder
 {
@@ -13,20 +15,21 @@ class UserTableSeeder extends Seeder
     {
     	DB::table('users')->delete();
 
-        factory(App\User::class)->create([
+        App\User::factory()->create([
         	'name' => 'Jerónimo Admin',
         	'role' => 'admin',
         	'email' => 'jeronimo.calace+admin@gmail.com',
         	'password' =>  bcrypt('123456')
         ]);
 
-        factory(App\User::class)->create([
+        App\User::factory()->create([
             'name' => 'Jerónimo General',
             'role' => 'general',
             'email' => 'jeronimo.calace+general@gmail.com',
             'password' =>  bcrypt('123456')
         ]);
 
-        factory(App\User::class, 48)->create();
+       
+        App\User::factory(10)->create();
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ActionTableSeeder extends Seeder
 {
@@ -13,7 +15,7 @@ class ActionTableSeeder extends Seeder
     {
         DB::table('actions')->delete();
 
-        factory(App\Action::class)->create([
+        App\Action::factory()->create([
         	'title'        => 'Consejo de niños y niñas',
 
         	'description'  => 'Esta acción participativa constituye un dispositivo educativo para el ejercicio temprano de la ciudadanía que genera espacios en los cuales mediante el diálogo, la interacción y el trabajo en equipo se buscan establecer acuerdos, entre los adultos y los niños, que sustenten la idea de ciudad inclusiva, generando propuestas concretas y promoviendo acciones y actitudes en pos de transformar el espacio urbano.
@@ -31,6 +33,6 @@ class ActionTableSeeder extends Seeder
         	'allow_newvents'     => 1
         ]);
 
-        factory(App\Action::class, 5)->create();
+         App\Action::factory(5)->create();
     }
 }

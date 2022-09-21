@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
 class AddColumnDistrictToUsersTable extends Migration
 {
@@ -13,7 +14,7 @@ class AddColumnDistrictToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('district', ['Centro', 'Este', 'La costa', 'Norte', 'Noreste', 'Noroeste', 'Oeste', 'Suroeste']);
+            $table->enum('district', ['Centro', 'Este', 'La costa', 'Norte', 'Noreste', 'Noroeste', 'Oeste', 'Suroeste'])->default('Este');
         });
     }
 

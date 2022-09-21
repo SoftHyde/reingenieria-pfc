@@ -106,7 +106,7 @@
 				<br>
 				{{ $proposal->title }}
 			</h2>
-			<p class="proposal-text">{!! nl2br($proposal->content) !!}</p>
+			<p class="proposal-text">{{$proposal->content}}</p>
 			<br>
 			<strong>COMPARTIR</strong>
 			<div class="ssk-group" >

@@ -11,7 +11,8 @@
 					<small>{{$comment->updated_at}}</small>
 				</div>
 				<div class="col col-md-8" style="padding-left: 0px;">
-					<div class="proposal-comment">{!! nl2br($comment->comment) !!}</div>
+					<div class="proposal-comment">{{$comment->comment}}</div>
+					
 				</div>
 				<div class="col col-md-1">
 					@if(Gate::allows('edit_comment', $comment))

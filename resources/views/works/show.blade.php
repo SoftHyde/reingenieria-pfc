@@ -70,7 +70,7 @@
 				<br>
 				{{ $work->title }}
 			</h2>
-			<p class="proposal-text">{!! nl2br($work->content) !!}</p>
+			<p class="proposal-text">{{$work->content}}</p>
 			<br>
       @if($work->location)
         <h3>Ubicación</h3>

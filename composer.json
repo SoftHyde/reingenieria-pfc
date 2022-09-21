@@ -12,14 +12,15 @@
         "doctrine/dbal": "^2.5",
         "geoip/geoip": "~1.14",
         "biscolab/laravel-recaptcha": "^5.0",
-        "laravel/ui": "^3.0"
+        "fakerphp/faker": "^1.9.1",
+        "laravel/ui": "^3.0",
+        "google/apiclient":"^2.0"
        
     },
     "require-dev": {
         "symfony/finder": "^6.0",
         "symfony/dom-crawler":"3.1.*",
         "symfony/css-selector":"3.1.*",
-        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "^9.0",
         "phpspec/phpspec": "^7.2",
