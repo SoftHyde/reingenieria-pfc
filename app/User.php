@@ -86,6 +86,22 @@ class User extends Authenticatable
         return $this->hasMany(Rating::class);
     }
 
+    public function articleVotedUsers(){
+        return $this->hasMany(ArticleVotedUsers::class);
+    }
+
+    public function article(){
+        return $this->hasMany(Article::class);
+    }
+
+    public function project(){
+        return $this->hasMany(Project::class);
+    }
+
+    public function commentArticle(){
+        return $this->hasMany(CommentArticle::class);
+    }
+
     //return array of works ids
     public function ratedWorks(){
         return $this->ratings()->pluck('work_id')->toArray();

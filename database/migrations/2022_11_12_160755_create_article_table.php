@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('article', function (Blueprint $table) {
             $table->increments('id');
-            $table->longtext('desx');
+            $table->longtext('description');
             $table->integer('user_id_created')->unsigned();
             $table->foreign('user_id_created')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status',['En Revision', 'Factible', 'No Factible'])->default('En Revision');

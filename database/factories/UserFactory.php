@@ -22,11 +22,7 @@ class UserFactory extends Factory
             'password' => bcrypt(Str::random(10)),
             'remember_token' => Str::random(10),
             'role' => 'general',
-            'ban_reason' => null,
-<<<<<<< HEAD
-            
-=======
->>>>>>> 5d4a046 (Arreglos finales de Bd e injeccion de codigo HTML en formularios)
+            'ban_reason' => null
         ];
     }
 }
