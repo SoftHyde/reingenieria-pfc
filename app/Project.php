@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Project extends Model
 {
@@ -20,4 +21,8 @@ class Project extends Model
     public function projectTag(){
         return $this->hasMany(ProjectTag::class);
     }
+
+    public function countdown(){
+        return((new Carbon($this->limit_date))->diffInDays(Carbon::now()));
+     }
 }

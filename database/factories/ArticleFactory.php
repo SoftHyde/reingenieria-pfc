@@ -17,10 +17,10 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->text(),
+            'description' => $this->faker->text(1000),
             'user_id_created' => '1',
             'status' => $this->faker->randomElement(['En Revision', 'Factible', 'No Factible']),
-            'project_id' =>  '1',
+            'project_id' =>  rand(1,10),
         ];
     }
 }

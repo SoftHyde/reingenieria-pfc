@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('article', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->longtext('description');
             $table->integer('user_id_created')->unsigned();
             $table->foreign('user_id_created')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status',['En Revision', 'Factible', 'No Factible'])->default('En Revision');
             $table->integer('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');            
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');            
             $table->longText('closing_message')->nullable()->default(null);
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article');
+        Schema::dropIfExists('articles');
     }
 };

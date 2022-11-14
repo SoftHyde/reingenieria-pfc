@@ -402,4 +402,21 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
+	Route::get('proyectos', [
+		'uses'	=> 'ProjectController@index',
+		'as'	=> 'projects'
+		]);
+
+	Route::get('proyectos/{id}', [
+	'uses'	=> 'ProjectController@show',
+	'as'	=> 'project'
+	]);
+
+
+
+
+	Route::get('article/{id}', [
+		'uses'	=> 'ArticleController@show',
+		'as'	=> 'article'
+		]);
 });

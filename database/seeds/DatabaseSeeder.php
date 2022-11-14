@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ProposalsTableSeeder::class);
         $this->call(WorkTableSeeder::class);
         //$this->call(ProjectSeeder::class);
-        \App\Project::factory(5)->create();
-        $this->call(ArticleSeeder::class);
-        $this->call(TagSeeder::class);
+        \App\Project::factory(10)->create();
+        \App\Article::factory(50)->create();
+        \App\Tag::factory(5)->create();
+        // $this->call(ArticleSeeder::class);
+        // $this->call(TagSeeder::class);
 
         Model::reguard();
     }

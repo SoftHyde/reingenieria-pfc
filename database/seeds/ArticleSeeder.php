@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ArticleSeeder extends Seeder
 {
@@ -14,8 +15,8 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('article')->delete();
+        DB::table('articles')->delete();
 
-        App\Article::factory(2)->create();
+        App\Article::factory(20)->create();
     }
 }

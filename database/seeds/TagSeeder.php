@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class TagSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tag')->delete();
+        DB::table('tags')->delete();
 
         App\Tag::factory(2)->create();
     }
