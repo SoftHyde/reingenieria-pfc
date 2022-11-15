@@ -4,7 +4,7 @@
 		@if($j >= count($projects))
 			<div class="card card-holder"></div>
 		@else
-			<div class="card">
+			<div class="card" style="width: 200px; height: 200px">
 				<a href="{{ route('project', ['id' => $projects[$j]->id]) }}">
 			    	<div class="card-block">
 			    		<h3 class="card-title" style="color: black;">{{ $projects[$j]->name }}</h3>
@@ -21,4 +21,4 @@
 	<hr>
 @endfor
 
-{!! $projects->render() !!}
+{!! $projects->links() !!}

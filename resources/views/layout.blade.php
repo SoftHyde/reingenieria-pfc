@@ -26,6 +26,7 @@
     
     @yield('meta')
     
+    <link rel="stylesheet" href="/home/chueko/Desktop/reingenieria-pfc/public/css/app.css">
     <!-- favIcon -->
     <link rel="icon" href="/images/PC.png">
     <!-- bootstrap -->

@@ -42,12 +42,33 @@
   </div>
 </div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-        @include('partials/actions_list')
-    </div>
-  </div>
+<div class="card-deck" style="padding-left:30%;">
+          <div class="card prueba">
+            <a href="{{ route('projects') }}">
+                <div class="card-block" style="background-image: url('images/leyes-.jpg'); height: 400px; background-position: center;">
+                  <h3 class="card-title" style="color: black; text-align:center;">Co-Construccion de leyes</h3>
+                  <br>
+                  <p style="color: black; ">El Portal de Leyes Abiertas es una plataforma de elaboración colaborativa
+                  de normas donde los diputados ponen a disposición de la ciudadanía sus propuestas y proyectos de ley 
+                  para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
+                  las propuestas de ley y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
+                  enriquecer el debate parlamentario.</p>
+                </div>
+            </a>    
+          </div>
+          <div class="card">
+            <a href="{{ route('actions') }}">
+                <div class="card-block" style="background-image: url('images/hands.jpg');height: 400px; background-position: center;">
+                  <h3 class="card-title" style="color: black;text-align:center;">Acciones Participativas</h3>
+                  <br>
+                  <p style="color: black;">El Portal de Acciones Participativas es una plataforma de elaboración colaborativa
+                    de propuestas donde los ciudadanos ponen a disposición de la ciudadanía sus propuestas y proyectos 
+                    para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
+                    las propuestas de participacion ciudadana y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
+                    enriquecer el debate de las necesidades de los ciudadanos.</p>
+                </div>
+              </a>    
+          </div>
 </div>
 
 
