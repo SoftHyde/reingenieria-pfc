@@ -342,3 +342,7 @@ section.gray{
   padding: 5px;
   border-radius: 15px;
 }
+
+.toolSelection{
+  border-radius: 15px !important;
+}
