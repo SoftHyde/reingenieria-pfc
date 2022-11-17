@@ -1,30 +1,24 @@
-@for ($i = 0; $i < count($articles); $i=$i+3)
-	<div class="card-deck">
-	@for ($j = $i; $j < $i+3; $j++)
-		@if($j >= count($articles))
+<div class="list-group">
+	@for ($i = 0; $i < count($articles); $i=$i+1)
+		@if($i >= count($articles))
 			<div class="card card-holder"></div>
 		@else
-			<div class="card">
-				<a href="{{ route('article', ['id' => $articles[$j]->id, 'numero'=>$j+1]) }}">
-					<img class="card-img-top img-fluid" align="center" src="/images/proposal.jpg" alt="Card image cap">
-			    	<div class="card-block">
-			    		<h3 class="card-title" style="color: black;">Articulo: {{$j+1}}</h3>
-			    		<span style="color: black;">{{ strip_tags(substr($articles[$j]->description, 0, 100)) }}...</span>
-	    				<div class="row" style="color: black;">
-	    					<div class="col-md-8">
-	    						<br>
-								
-				    		</div>
-			    		</div>
-			    			
-			    	</div>
-			    </a>
-	    	</div>
+			<a href="{{ route('article', ['id' => $articles[$i]->id, 'numero'=>$i+1]) }}" class="list-group-item">
+				<div class="row">
+					<div class="col-md-10">
+						<h3 style="color: black; margin: 10px">Articulo: {{$i+1}}</h3>
+						<span style="color: black; margin-left: 10px">{{ strip_tags(substr($articles[$i]->description, 0, 150)) }}...</span>
+					</div>
+					<div class="col-md-2" style="align-items: center !important;">
+						<h3 class="light" align="right" style="color: #555">
+							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+							{{count($articles[$i]->supporters)}}	
+						</h3>
+					</div>
+				</div>
+			</a>
 		@endif
-		<hr>
 	@endfor
-	</div>
-	<hr>
-@endfor
+</div>
 
 {!! $articles->render() !!}

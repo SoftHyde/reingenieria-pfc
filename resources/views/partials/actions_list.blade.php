@@ -8,7 +8,15 @@
 				<a href="{{ route('action', ['id' => $actions[$j]->id]) }}">
 					<img class="card-img-top img-fluid" align="center" src="{{$actions[$j]->avatar}}" alt="Card image cap">
 			    	<div class="card-block">
-			    		<h3 class="card-title" style="color: black;">{{ $actions[$j]->title }}</h3>
+			    		<div class="row">
+							<div class="col-md-8">
+								<h3 class="card-title" style="color: black; margin-top:5px">{{ $actions[$j]->title }}</h3>
+							</div>
+							<div class="col-md-2 col-md-offset-2" style="margin-top:7px">
+								<span class="tag"> Salud
+								</span>
+							</div>
+						</div>
 			    		<span style="color: black;">{{ strip_tags(substr($actions[$j]->description, 0, 150)) }}...</span>
 			    	</div>
 			    </a>

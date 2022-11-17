@@ -336,6 +336,9 @@ section.gray{
   font-size: 14px;
 }
 
-.prueba:hover{
-  background:linear-gradient(45deg,rgba(29,236,197,0.5),rgba(91,14,214,0.5)100%);
+.tag{
+  background-color:#5cb85c;
+  color:black;
+  padding: 5px;
+  border-radius: 15px;
 }
