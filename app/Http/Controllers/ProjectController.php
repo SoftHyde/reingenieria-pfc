@@ -86,4 +86,26 @@ class ProjectController extends Controller
     {
         //
     }
+
+
+    public function getCreateArticle($project_id){
+
+        $project = Project::findOrFail($project_id);
+
+        return view('articles.create_article', compact('project'));
+    }
+
+    public function postCreateArticle(Request $request){
+
+
+        $this->validate($request,[
+            'description'   => 'required'
+            ]);
+
+        app('App\Http\Controllers\ArticleController')->store($request);
+
+        return redirect(route('project', $request->get('project_id')))
+            ->with('alert', 'La propuesta ha sido creada con éxito');
+
+    }
 }

@@ -10,6 +10,6 @@ class Tag extends Model
     use HasFactory;
 
     public function projectTag(){
-        return $this->hasMany(ProjecTag::class);
+        return $this->belongsToMany(Project::class, 'project_tags')->withTimestamps();
     }
 }

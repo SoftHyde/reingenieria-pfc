@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\User;
+use Gate;
+use Validator;
+
 use Illuminate\Http\Request;
 
 
@@ -37,7 +40,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article;
+
+        $article->description        = $request->get('description');
+        $article->project_id    = $request->get('project_id');
+
+        auth()->user()->article()->save($article);
     }
 
     /**
@@ -66,9 +74,15 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$numero)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        if (Gate::denies('edit_article', $article)) {
+            abort(403, 'No autorizado');
+        }
+
+        return view('articles/edit', compact('article','numero'));
     }
 
     /**
@@ -78,9 +92,30 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$numero)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'description'      => 'required'
+        ]);
+
+        if ($validation->fails()) {
+            $this->throwValidationException(
+                $request, $validation
+            );
+        }
+
+        $article = Article::findOrFail($id);
+
+        if (Gate::denies('edit_article', $article)) {
+            abort(403, 'No autorizado');
+        }
+
+        $article->description = $request->get('description');
+
+        $article->save();
+
+        return redirect()->route('article', [$article->id,$numero])
+            ->with('alert', 'La propuesta ha sido editada con éxito');
     }
 
     /**
@@ -89,10 +124,17 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $article   = Article::findOrFail($request->get('article_id'));
+
+        $project_id  = $article->project_id;
+        $article->delete();
+
+        return redirect(route('project', $project_id))
+            ->with('alert', "El articulo  ha sido eliminada con éxito.");
     }
+
 
     public function postComment(Request $request) {
         
@@ -139,4 +181,6 @@ class ArticleController extends Controller
 
         return redirect()->back();
     }
+
+
 }
