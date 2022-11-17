@@ -2,6 +2,7 @@
 
 use Database\Seeders\ArticleSeeder;
 use Database\Seeders\ProjectSeeder;
+use Database\Seeders\ProjectTagSeeder;
 use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;

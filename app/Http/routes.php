@@ -469,6 +469,29 @@ Route::group(['middleware' => 'auth'], function () {
 		'as'	=> 'article.unsupport'
 		]);
 	
+	Route::get('crear-articulo/{project_id}', [
+	'uses'	=> 'ProjectController@getCreateArticle',
+	'as'	=> 'create-article-form'
+	]);
 
+	Route::post('crear-articulo', [
+		'uses'	=> 'ProjectController@postCreateArticle',
+		'as'	=> 'create-article'
+		]);
+
+	Route::get('editar-articulo/{id}/{numero}', [
+		'uses'	=> 'ArticleController@edit',
+		'as'	=> 'article.edit'
+		]);
+
+	Route::put('editar-articulo/{id}/{numero}', [
+		'uses'	=> 'ArticleController@update',
+		'as'	=> 'article.update'
+		]);
+
+	Route::delete('borrar-articulo', [
+		'uses'	=> 'ArticleController@destroy',
+		'as'	=> 'article.delete'
+		]);
 
 });

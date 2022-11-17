@@ -27,4 +27,9 @@
 	<hr>
 @endfor
 
+
+<div class="row text-center">
+	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
+</div>
+
 {!! $articles->render() !!}

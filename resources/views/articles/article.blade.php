@@ -37,8 +37,43 @@
 			@include('partials/success')
 		  	<h2>
 				<a href="{{ route('project', ['id' => $project->id]) }}"><small>{{$project->name}}</small> </a> <small> >> Articulo {{$numero}}</small>
+				@if(Gate::allows('edit_article', $article))
+					<div class="dropdown pull-right">
+					  <button class="btn btn-modern dropdown-toggle btn-lg" type="button" data-toggle="dropdown">
+					  	<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+					  </button>
+					  <ul class="dropdown-menu">    
+					    
+					    	<li class="list-group-item list-group-item-default">
+						    	<a href="{{route('article.edit', [$article->id,$numero])}}"><i class="fa fa-edit" aria-hidden="true"></i> Editar contenido del articulo</a>
+						    </li>
+					
+						@if(Gate::allows('admin_action', $article->project_id))
+						    <li class="divider"></li>
+						    <li>
+						    	<form role="form" method="POST" action="{{ route('article.delete')}}">
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<input type="hidden" name="article_id" value="{{ $article->id }}">
+									<input type="hidden" name="_method" value="DELETE">
+
+									<button type="submit" class="btn btn-danger btn-block rect"
+									style="text-align:left; padding-left: 35px" 
+									data-toggle="confirmation"
+									data-popout="true"
+									data-placement="bottom"
+									data-btn-ok-label="Si"
+							        data-btn-cancel-label="No"
+							        data-title="¿Estás seguro de que deseas eliminarla?"
+									>
+									  <i class="fa fa-trash" aria-hidden="true"></i> Eliminar articulo
+									</button>
+								</form>
+						    </li>
+						@endif
+					  </ul>
+					</div>
+				@endif
 				<br>
-				{{ $article->title }}
 			</h2>
 			<p class="proposal-text">{{$article->description}}</p>
 			<br>

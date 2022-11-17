@@ -147,6 +147,15 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define('edit_article',function($user, $article){
+            if (auth()->check()){
+                return ($user->id == $article->user_id) or ($user->id == $article->project->admin_id) or ($user->role == 'admin');
+            }
+            else {
+                return false;
+            }
+        });
+
 
     }
 }
