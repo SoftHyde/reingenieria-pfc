@@ -27,6 +27,8 @@ class CreateCommentsTable extends Migration
         });
     }
 
+    
+
     /**
      * Reverse the migrations.
      *

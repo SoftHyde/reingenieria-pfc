@@ -24,4 +24,10 @@ class Article extends Model
     public function commentArticle(){
         return $this->hasMany(CommentArticle::class);
     }
+
+
+    public function supporters(){
+        return $this->belongsToMany(User::class, 'user_support_article')->withTimestamps();
+    }
+
 }

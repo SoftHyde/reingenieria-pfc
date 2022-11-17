@@ -14,7 +14,8 @@
         "biscolab/laravel-recaptcha": "^5.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/ui": "^3.0",
-        "google/apiclient":"^2.0"
+        "google/apiclient":"^2.0",
+        "twbs/bootstrap": "5.0.2"
        
     },
     "require-dev": {

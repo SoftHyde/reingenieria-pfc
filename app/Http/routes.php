@@ -103,7 +103,24 @@ Route::get('usuarios/{id}', [
 	'as'	=> 'user'
 	]);
 
+//Nuevas Rutas
+Route::get('proyectos', [
+	'uses'	=> 'ProjectController@index',
+	'as'	=> 'projects'
+	]);
 
+Route::get('proyectos/{id}', [
+'uses'	=> 'ProjectController@show',
+'as'	=> 'project'
+]);
+
+
+
+
+Route::get('article/{id}/{numero}', [
+	'uses'	=> 'ArticleController@show',
+	'as'	=> 'article'
+	]);
 
 // Usuarios autenticados
 Route::group(['middleware' => 'auth'], function () {
@@ -402,21 +419,56 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
-	Route::get('proyectos', [
-		'uses'	=> 'ProjectController@index',
-		'as'	=> 'projects'
+	//Comentarios Articulos
+
+	Route::post('comentar-articulo', [
+		'uses'	=> 'ArticleController@postComment',
+		'as'	=> 'article.comment'
+		]);
+	
+	Route::get('editar-comentario-articulo/{id}/{numero}', [
+		'uses'	=> 'CommentProjectController@edit',
+		'as'	=> 'commentarticle.edit'
 		]);
 
-	Route::get('proyectos/{id}', [
-	'uses'	=> 'ProjectController@show',
-	'as'	=> 'project'
-	]);
-
-
-
-
-	Route::get('article/{id}', [
-		'uses'	=> 'ArticleController@show',
-		'as'	=> 'article'
+	Route::put('editar-comentario-articulo/{id}/{numero}', [
+		'uses'	=> 'CommentProjectController@update',
+		'as'	=> 'commentarticle.update'
 		]);
+
+	Route::post('me-gusta-comentario-articulo', [
+		'uses'	=> 'CommentProjectController@like',
+		'as'	=> 'commentarticle.like'
+		]);	
+
+	Route::delete('ya-no-me-gusta-comentario-articulo', [
+		'uses'	=> 'CommentProjectController@unlike',
+		'as'	=> 'commentarticle.unlike'
+		]);
+
+	Route::delete('borrar-comentario-articulo', [
+		'uses'	=> 'CommentProjectController@destroy',
+		'as'	=> 'commentarticle.delete'
+		]);
+
+	Route::get('denunciar-comentario-articulo/{id}/{numero}', [
+		'uses'	=> 'CommentProjectController@report',
+		'as'	=> 'commentarticle.report'
+		]);
+
+	
+	//Apoyo Articulo
+
+	Route::post('apoyar-articulo', [
+		'uses'	=> 'ArticleController@support',
+		'as'	=> 'article.support'
+		]);
+
+	Route::delete('quitar-apoyo-articulo', [
+		'uses'	=> 'ArticleController@unsupport',
+		'as'	=> 'article.unsupport'
+		]);
+	
+
+
 });

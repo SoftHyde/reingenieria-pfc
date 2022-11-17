@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\User;
 use Illuminate\Http\Request;
+
 
 class ArticleController extends Controller
 {
@@ -43,9 +46,18 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,$numero)
     {
-        //
+
+        $article   = Article::findOrFail($id);
+        $project     = $article->project;
+        $creator    = $article->user;
+        $comments   = $article->commentArticle;
+        $supporters = $article->supporters->pluck('user_id')->toArray();
+
+    
+
+        return view('articles/article', compact('article', 'creator', 'project','comments','supporters','numero'));
     }
 
     /**
@@ -80,5 +92,51 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function postComment(Request $request) {
+        
+        $this->validate($request,[
+            'comment'   => 'required'
+            ]);
+
+        app('App\Http\Controllers\CommentProjectController')->store($request);
+
+        return redirect(route('article',[$request->get('article_id'),$request->get('numero')]))
+            ->with('alert', 'El comentario ha sido publicado con éxito');
+    }
+
+
+    public function support(Request $request) {
+
+        $user = auth()->user();
+        $article   = Article::findOrFail($request->get('article_id'));
+        $supporters = $article->supporters()->pluck('user_id')->toArray();
+
+
+        if ( in_array($user->id, $supporters) ) {
+            return redirect()->back()
+                ->with('warning', 'Ya estás apoyando esta propuesta');
+        }
+
+        $user->supportArticle()->attach($article->id);
+
+        return redirect()->back();
+    }
+
+    public function unsupport(Request $request) {
+
+        $user = auth()->user();
+        $article   = Article::findOrFail($request->get('article_id'));
+        $supporters = $article->supporters()->pluck('user_id')->toArray();
+
+        if ( ! in_array($user->id, $supporters) ) {
+            return redirect()->back()
+                ->with('warning', 'No estás apoyando esta propuesta');
+        }
+
+        $user->supportArticle()->detach($article->id);
+
+        return redirect()->back();
     }
 }

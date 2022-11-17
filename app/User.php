@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Proposal::class, 'user_support_proposal')->withTimestamps();;
     }
 
+    public function supportArticle(){
+        
+        return $this->belongsToMany(Article::class, 'user_support_article')->withTimestamps();;
+    }
+
     public function likeComment(){
         
         return $this->belongsToMany(Comment::class, 'user_like_comment')->withTimestamps();;
@@ -101,6 +106,12 @@ class User extends Authenticatable
     public function commentArticle(){
         return $this->hasMany(CommentArticle::class);
     }
+
+    public function likeCommentArticle(){
+        
+        return $this->belongsToMany(CommentArticle::class, 'user_like_comment_article')->withTimestamps();
+    }
+    
 
     //return array of works ids
     public function ratedWorks(){

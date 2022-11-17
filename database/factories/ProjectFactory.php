@@ -19,7 +19,7 @@ class ProjectFactory extends Factory
         return [
             'name' => $this->faker->sentence(),
             'description' => $this->faker->text(),
-            'user_id_created' => '1',
+            'user_id' => '1',
             'limit_date' =>  $this->faker->dateTimeBetween('+1 week','+10 week'),
         ];
     }

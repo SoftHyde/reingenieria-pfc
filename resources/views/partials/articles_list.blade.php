@@ -5,7 +5,7 @@
 			<div class="card card-holder"></div>
 		@else
 			<div class="card">
-				<a href="{{ route('article', ['id' => $articles[$j]->id]) }}">
+				<a href="{{ route('article', ['id' => $articles[$j]->id, 'numero'=>$j+1]) }}">
 					<img class="card-img-top img-fluid" align="center" src="/images/proposal.jpg" alt="Card image cap">
 			    	<div class="card-block">
 			    		<h3 class="card-title" style="color: black;">Articulo: {{$j+1}}</h3>

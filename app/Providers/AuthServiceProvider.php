@@ -66,6 +66,15 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define('edit_comment_article',function($user, $comment){
+            if (auth()->check()){
+                return ($user->id == $comment->user_id) or ($user->id == $comment->article->project->admin_id) or ($user->role == 'admin');
+            }
+            else {
+                return false;
+            }
+        });
+
         Gate::define('vote',function($user, $poll_id){
             $poll = Poll::findOrFail($poll_id);
             if (auth()->check()){
@@ -77,6 +86,14 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('support_proposal',function($user, $supporters){
+            if (auth()->check()){
+                return !in_array($user->id, $supporters->pluck('user_id')->toArray());
+            }
+            else {
+                return false;
+            }
+        });
+        Gate::define('support_article',function($user, $supporters){
             if (auth()->check()){
                 return !in_array($user->id, $supporters->pluck('user_id')->toArray());
             }
@@ -120,6 +137,16 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
+
+        Gate::define('like_comment_article',function($user, $comment){
+            if (auth()->check()){
+                return !in_array($user->id, $comment->likers()->pluck('user_id')->toArray());
+            }
+            else {
+                return false;
+            }
+        });
+
 
     }
 }

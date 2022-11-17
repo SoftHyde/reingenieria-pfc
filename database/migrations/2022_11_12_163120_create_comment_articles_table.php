@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments_articles', function (Blueprint $table) {
+        Schema::create('comment_articles', function (Blueprint $table) {
             $table->increments('id');
             $table->longText('comment');
             $table->integer('user_id')->unsigned();
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('user_name');
             $table->integer('article_id')->unsigned();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->integer('reported')->unsigned()->default(0);
             $table->timestamps();
         });
     }
