@@ -53,6 +53,20 @@
 				</div>
 				<div class="col-md-6">
 					<h4>
+						<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+						Proyectos de Ley
+					</h4>
+					<a href="{{ route('project.create') }}" class="list-group-item">Crear Proyecto de Ley <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+					<br>
+					<ul>
+						<li>Proyectos de ley: <strong>{{$data['projects']}}</strong></li>
+						<li>Articulos creados: <strong>{{$data['articles']}}</strong></li>
+						<li>Comentarios realizados: <strong>{{$data['commentsArticles']}}</strong></li>
+					</ul>
+					
+				</div>
+				<div class="col-md-6">
+					<h4>
 						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 						Usuarios
 					</h4>

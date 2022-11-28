@@ -36,9 +36,12 @@
 				  	<select class="form-control" id="role" name="role" value="{{ old('role') }}">
 				    	<option>general</option>
 				    	<option>admin</option>
+						<option>moderador</option>
 				  	</select>
 				  	<br>
 				  	<div class="alert alert-danger"><strong>¡Cuidado! </strong>Si creas un usuario tipo 'admin', le darás acceso a todas las funciones de administrador.</div>
+					<br>
+					<div class="alert alert-danger"><strong>¡Cuidado! </strong>Si creas un usuario tipo 'moderador', le darás acceso a todas las funciones de moderador.</div>
 				</div>
 
 				<div class="form-group">

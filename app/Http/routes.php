@@ -114,6 +114,11 @@ Route::get('proyectos/{id}', [
 'as'	=> 'project'
 ]);
 
+Route::get('proyectos/tag/{tag}', [
+	'uses'	=> 'ProjectController@showTag',
+	'as'	=> 'projectTag'
+	]);
+
 
 
 
@@ -414,6 +419,16 @@ Route::group(['middleware' => 'auth'], function () {
 			'uses' 	=> 'UserController@postCreate',
 			'as'	=> 'user.postcreate'
 			]);
+		
+		Route::get('administracion/crear-proyecto', [
+			'uses' 	=> 'ProjectController@create',
+			'as' 	=> 'project.create'
+			]);
+
+		Route::post('administracion/crear-proyecto', [
+			'uses' 	=> 'ProjectController@store',
+			'as'	=> 'project.store'
+			]);
 
 		
 
@@ -469,7 +484,9 @@ Route::group(['middleware' => 'auth'], function () {
 		'as'	=> 'article.unsupport'
 		]);
 	
-	Route::get('crear-articulo/{project_id}', [
+	
+	Route::group(['middleware' => 'role:moderador'], function () {
+		Route::get('crear-articulo/{project_id}', [
 	'uses'	=> 'ProjectController@getCreateArticle',
 	'as'	=> 'create-article-form'
 	]);
@@ -493,5 +510,6 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses'	=> 'ArticleController@destroy',
 		'as'	=> 'article.delete'
 		]);
+	});
 
 });

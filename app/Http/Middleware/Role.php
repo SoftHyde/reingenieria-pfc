@@ -8,6 +8,7 @@ class Role
 {
 
     protected $hierarchy = [
+        'moderador'     => 4,
         'admin'         => 3,
         'action_admin'  => 2,
         'general'       => 1

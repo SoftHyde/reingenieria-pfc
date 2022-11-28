@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use App\User;
+use App\Tag;
+use App\ProjectTag;
 
 class ProjectController extends Controller
 {
@@ -19,14 +22,9 @@ class ProjectController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+   public function create(){
+        return view('projects.create');
     }
 
     /**
@@ -37,7 +35,70 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'         => 'required',
+            'description'   => 'required',
+            'admin_email'   => 'required'
+            ]);
+
+        if ( Project::where('name', $request->get('name') )->first() ) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors([
+                    'name' => 'Ya existe un Proyecto con ese nombre'
+                    ]);
+        }
+        if ( ! User::where('email', $request->get('admin_email') )->first() ) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors([
+                    'admin_email' => 'No existe ningún usuario con ese email'
+                    ]);
+        }
+
+        $user = User::where('email', $request->get('admin_email') )->first();
+
+        if ($user->role == 'general'){
+            $user->role = 'action_admin';
+            $user->save();
+        }
+        foreach ($request->get('tag') as $tag){
+            
+            if ( ! Tag::where('name', $tag['tag'] )->first() ) {
+                // return redirect()->back()
+                //     ->withInput()
+                //     ->withErrors([
+                //         'admin_email' => 'No existe ningún Tag con ese nombre'
+                //         ]);
+                $newTag= new Tag;
+                $newTag -> name = $tag['tag'];
+                $newTag->save();
+            }
+        }
+
+        
+        
+
+        $project = new Project;
+       
+        $project->name          = $request->get('name');
+        $project->description    = $request->get('description');
+        $project->user_id       = User::where('email', $request->get('admin_email'))->first()->id;
+        $project->limit_date = $request->get('limit_date');
+     
+      
+        $project->save();
+        foreach ($request->get('tag') as $tag){
+            $ptag = Tag::where('name', $tag['tag'] )->first();
+            $projectTag= new ProjectTag;
+            $projectTag->project_id = $project->id;
+            $projectTag->tag_id = $ptag->id;
+            $projectTag->save();
+        }
+        // Avatar 
+
+        return redirect(route('projects', $project->id))
+            ->with('alert', 'El Proyecto ha sido creado con éxito');
     }
 
     /**
@@ -53,6 +114,14 @@ class ProjectController extends Controller
         return view('projects/project', compact('project','articles'));
     }
 
+
+    public function showTag($tag)
+    {   
+        $tagName=Tag::findOrFail($tag);
+        $tagName=$tagName->name;
+        $projects=Project::whereRelation('projectTag', 'tag_id', '=', $tag)->paginate();
+        return view('projects.search',compact('projects','tag','tagName'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

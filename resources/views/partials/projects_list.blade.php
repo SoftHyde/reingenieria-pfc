@@ -13,7 +13,11 @@
 								<span style="color: red; margin-top:5px">{{$projects[$j]->countdown()}} Dias restantes</span>
 							</div>
 							<div class="col-md-2 col-md-offset-2">
-								<span class="tag"> Salud
+								<span class="tag tag-default"> 
+									@foreach ($projects[$j]->projectTag as $tag)
+										<a href="{{ route('projectTag', ['tag' => $tag->tag]) }}">{{$tag->tag->name}}</a>
+										<br>
+									@endforeach
 								</span>
 							</div>
 						</div>
