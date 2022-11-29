@@ -11,6 +11,8 @@ use App\User;
 use App\Proposal;
 use App\Poll;
 use Gate;
+use App\Tag;
+use App\ActionTag;
 use Image;
 use Illuminate\Support\Facades\File;
 use Validator;
@@ -94,8 +96,24 @@ class ActionController extends Controller
             $action->allow_polls              = 0;
         }
 
+        foreach ($request->get('tag') as $tag){
+            
+            if ( ! Tag::where('name', $tag['tag'] )->first() ) {
+                $newTag= new Tag;
+                $newTag -> name = $tag['tag'];
+                $newTag->save();
+            }
+        }
 
         $action->save();
+
+        foreach ($request->get('tag') as $tag){
+            $ptag = Tag::where('name', $tag['tag'] )->first();
+            $actionTag= new ActionTag;
+            $actionTag->action_id = $action->id;
+            $actionTag->tag_id = $ptag->id;
+            $actionTag->save();
+        }
 
         // Avatar 
         if($request->hasFile('avatar')){
@@ -275,5 +293,11 @@ class ActionController extends Controller
         return redirect(route('action', $request->get('action_id')))
             ->with('alert', 'La propuesta ha sido creada con éxito');
 
+    }
+
+    public function showTag($tag)
+    {   
+        $actions=Action::whereRelation('actionTag', 'tag_id', '=', $tag)->paginate();
+        return view('actions.index',compact('actions'));
     }
 }

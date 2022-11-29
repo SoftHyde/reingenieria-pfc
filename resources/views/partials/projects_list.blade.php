@@ -10,6 +10,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<span style="color: red; margin-top:5px">{{$projects[$j]->countdown()}} Dias restantes</span>
+							
 						</div>
 						<div class="col-md-6" align="right">
 							@foreach ($projects[$j]->projectTag as $tag)

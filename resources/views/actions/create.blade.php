@@ -34,6 +34,19 @@
 					<label class="control-label">Descripción</label>
 					<textarea  class="form-control" rows="3" name="description" required>{{old('description')}}</textarea>
 				</div>
+				<br>
+                <table class="table table-bordered" id="dynamicAddRemove">
+                    <tr>
+                        <th>Tag</th>
+                        <th>Opcion</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="tag[0][tag]" placeholder="Ingrese el tag" class="form-control" value="{{ old('project_tag') }}"required/>
+                        </td>
+                        <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Agregar Tag</button></td>
+                    </tr>
+                </table>
+				<br>
 				<div class="form-group">
 					<label class="control-label">¿Cómo participo?</label>
 					<textarea class="form-control" rows="3" name="howto" placeholder="Describe cómo debe interactuar el ciudadano con esta acción participativa..." required>{{old('howto')}}</textarea>
@@ -149,5 +162,20 @@ $(document).ready(function () {
 	    $('#proposal-options').removeClass('hidden');
 	  });
 });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var i = 0;
+    $("#dynamic-ar").click(function () {
+        ++i;
+        $("#dynamicAddRemove").append('<tr><td><input type="text" name="tag[' + i +
+            '][tag]" placeholder="Enter tag" class="form-control" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            );
+    });
+    $(document).on('click', '.remove-input-field', function () {
+        $(this).parents('tr').remove();
+    });
 </script>
 @endsection

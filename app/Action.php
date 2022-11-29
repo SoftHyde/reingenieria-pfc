@@ -45,4 +45,7 @@ class Action extends Model
     public function admin(){
         return $this->belongsTo(User::class);
     }
+    public function actionTag(){
+        return $this->hasMany(ActionTag::class);
+    }
 }

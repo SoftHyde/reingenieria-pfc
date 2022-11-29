@@ -12,4 +12,8 @@ class Tag extends Model
     public function projectTag(){
         return $this->belongsToMany(Project::class, 'project_tags')->withTimestamps();
     }
+
+    public function actionTag(){
+        return $this->belongsToMany(Action::class, 'project_tags')->withTimestamps();
+    }
 }

@@ -12,13 +12,11 @@
 							<h3 class="card-title" style="color: black; margin-top:5px">{{ $actions[$j]->title }}</h3>
 						</div>
 						<div class="col-md-4" align="right">
-							{{-- @foreach ($projects[$j]->projectTag as $tag)
+							@foreach ($actions[$j]->actionTag as $tag)
 								<span class="tag tag-default"> 
-									<a href="{{ route('projectTag', ['tag' => $tag->tag]) }}" style="text-decoration: none; color:aliceblue">{{$tag->tag->name}}</a>
+									<a href="{{ route('actionTag', ['tag' => $tag->tag]) }}" style="text-decoration: none; color:aliceblue">{{$tag->tag->name}}</a>
 								</span>
-							@endforeach --}}
-							<span class="tag"> Salud
-							</span>
+							@endforeach
 						</div>
 					</div>
 					<span style="color: black;">{{ strip_tags(substr($actions[$j]->description, 0, 150)) }}...</span>

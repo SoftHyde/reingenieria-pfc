@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Project;
 use App\User;
 use App\Tag;
+use Gate;
 use App\ProjectTag;
+use App\Moderator;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
@@ -39,7 +41,8 @@ class ProjectController extends Controller
         $this->validate($request,[
             'name'         => 'required',
             'description'   => 'required',
-            'admin_email'   => 'required'
+            'moderator_email[0][moderator_email].*'   => 'required',
+            'tag.*'=>'required'
             ]);
 
         if ( Project::where('name', $request->get('name') )->first() ) {
@@ -49,28 +52,10 @@ class ProjectController extends Controller
                     'name' => 'Ya existe un Proyecto con ese nombre'
                     ]);
         }
-        if ( ! User::where('email', $request->get('admin_email') )->first() ) {
-            return redirect()->back()
-                ->withInput()
-                ->withErrors([
-                    'admin_email' => 'No existe ningún usuario con ese email'
-                    ]);
-        }
-
-        $user = User::where('email', $request->get('admin_email') )->first();
-
-        if ($user->role == 'general'){
-            $user->role = 'action_admin';
-            $user->save();
-        }
+       
         foreach ($request->get('tag') as $tag){
             
             if ( ! Tag::where('name', $tag['tag'] )->first() ) {
-                // return redirect()->back()
-                //     ->withInput()
-                //     ->withErrors([
-                //         'admin_email' => 'No existe ningún Tag con ese nombre'
-                //         ]);
                 $newTag= new Tag;
                 $newTag -> name = $tag['tag'];
                 $newTag->save();
@@ -81,14 +66,29 @@ class ProjectController extends Controller
         
 
         $project = new Project;
-       
         $project->name          = $request->get('name');
         $project->description    = $request->get('description');
-        $project->user_id       = User::where('email', $request->get('admin_email'))->first()->id;
+        $project->user_id       = auth()->user()->id;
         $project->limit_date = $request->get('limit_date');
-     
-      
         $project->save();
+      
+        
+        foreach ($request->get('moderator_email') as $moderator){
+            if ( ! User::where('email', $request->get('moderator_email') )->first() ) {
+                $project->delete();
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors([
+                        'admin_email' => 'No existe ningún usuario con ese email'
+                        ]);
+            }
+            $user = User::where('email', $moderator['moderator_email'] )->first();
+
+            $newModerator= new Moderator;
+            $newModerator -> user_id = $user->id;
+            $newModerator->project_id = $project->id;
+            $newModerator->save();
+        }
         foreach ($request->get('tag') as $tag){
             $ptag = Tag::where('name', $tag['tag'] )->first();
             $projectTag= new ProjectTag;
@@ -97,7 +97,7 @@ class ProjectController extends Controller
             $projectTag->save();
         }
         // Avatar 
-
+        
         return redirect(route('projects', $project->id))
             ->with('alert', 'El Proyecto ha sido creado con éxito');
     }
@@ -176,7 +176,9 @@ class ProjectController extends Controller
     public function getCreateArticle($project_id){
 
         $project = Project::findOrFail($project_id);
-
+        if (Gate::denies('moderator', $project)) {
+            abort(403, 'No autorizado');
+        }
         return view('articles.create_article', compact('project'));
     }
 

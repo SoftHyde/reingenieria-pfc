@@ -133,7 +133,7 @@
 	</div>
 </div>
 @else
-@if (Auth::check() and (Auth::user()->role == 'moderador' or Auth::user()->role == 'admin'))
+@if (Auth::check() and (Gate::allows('moderator', $project)))
 {{-- Agregar condicion para chekear en vez de el rol, el mail de usuarios asignados al proyecto como moderadores --}}
 <div class="row text-center">
 	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>

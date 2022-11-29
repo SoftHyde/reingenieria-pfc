@@ -56,6 +56,19 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
+        Gate::define('moderator',function($user, $project){
+            if (auth()->check()){
+                foreach($project->moderator as $moderator){
+                    if($moderator->user_id==$user->id or auth()->user()->role=='admin'){
+                        return true;
+                    }
+                }
+                
+            }
+            else {
+                return false;
+            }
+        });
 
         Gate::define('edit_comment',function($user, $comment){
             if (auth()->check()){

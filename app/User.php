@@ -107,6 +107,10 @@ class User extends Authenticatable
         return $this->hasMany(CommentArticle::class);
     }
 
+    public function moderator(){
+        return $this->hasMany(Moderator::class);
+    }
+
     public function likeCommentArticle(){
         
         return $this->belongsToMany(CommentArticle::class, 'user_like_comment_article')->withTimestamps();

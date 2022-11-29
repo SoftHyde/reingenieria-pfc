@@ -119,6 +119,11 @@ Route::get('proyectos/tag/{tag}', [
 	'as'	=> 'projectTag'
 	]);
 
+Route::get('accion-participativa/tag/{tag}', [
+	'uses'	=> 'ActionController@showTag',
+	'as'	=> 'actionTag'
+	]);
+
 
 
 
@@ -496,8 +501,8 @@ Route::group(['middleware' => 'auth'], function () {
 		]);
 	
 	
-	Route::group(['middleware' => 'role:moderador'], function () {
-		Route::get('crear-articulo/{project_id}', [
+	
+	Route::get('crear-articulo/{project_id}', [
 	'uses'	=> 'ProjectController@getCreateArticle',
 	'as'	=> 'create-article-form'
 	]);
@@ -521,6 +526,6 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses'	=> 'ArticleController@destroy',
 		'as'	=> 'article.delete'
 		]);
-	});
+	
 
 });

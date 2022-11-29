@@ -21,7 +21,7 @@
 	@endfor
 </div>
 
-@if (Auth::check() and (Auth::user()->role == 'moderador' or Auth::user()->role == 'admin'))
+@if (Auth::check() and (Gate::allows('moderator', $project)))
 <div class="row text-center">
 	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
 </div>

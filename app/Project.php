@@ -21,6 +21,9 @@ class Project extends Model
     public function projectTag(){
         return $this->hasMany(ProjectTag::class);
     }
+    public function moderator(){
+        return $this->hasMany(Moderator::class);
+    }
 
     public function countdown(){
         return((new Carbon($this->limit_date))->diffInDays(Carbon::now()));
