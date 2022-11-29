@@ -337,12 +337,20 @@ section.gray{
 }
 
 .tag{
-  background-color:#5cb85c;
-  color:black;
+  background-color:#337ab7;
+  color:white !important;
   padding: 5px;
   border-radius: 15px;
+  margin-left: 5px;
+  font-weight: 400;
 }
 
 .toolSelection{
   border-radius: 15px !important;
+}
+
+.card {
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
 }

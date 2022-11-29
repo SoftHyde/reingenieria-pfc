@@ -42,68 +42,44 @@
   </div>
 </div>
 
-{{-- <div class="card-deck" style="padding-left:30%;"> --}}
-  <div class="card-group">
-    <div class="col-md-6" style="padding: 0px">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="card-block jumbotron toolSelection">
-          <div class="container">
-            <h3 style="color: black; text-align:center;">Co-Construccion de leyes</h3>
-            <p style="color: black; ">El Portal de Leyes Abiertas es una plataforma de elaboración colaborativa
-              de normas donde los diputados ponen a disposición de la ciudadanía sus propuestas y proyectos de ley 
-              para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
-              las propuestas de ley y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
-              enriquecer el debate parlamentario.</p>
-            <p><a class="btn btn-primary btn-lg" href="{{ route('projects') }}" role="button">Entrar</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6" style="padding: 0px">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="card-block jumbotron toolSelection">
-          <div class="container">
-            <h3 style="color: black; text-align:center;">Acciones Participativas</h3>
-            <p style="color: black;">El Portal de Acciones Participativas es una plataforma de elaboración colaborativa
-              de propuestas donde los ciudadanos ponen a disposición de la ciudadanía sus propuestas y proyectos 
-              para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
-              las propuestas de participacion ciudadana y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
-              enriquecer el debate de las necesidades de los ciudadanos.</p>
-              <a class="btn btn-primary btn-lg" href="{{ route('actions') }}" role="button">Entrar</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-          
-          {{-- <div class="card">
-            <a href="{{ route('projects') }}">
-                <div class="card-block" style="background-image: url('images/leyes-.jpg'); height: 400px; background-position: center;">
-                  
-                  <br>
-                  <p style="color: black; ">El Portal de Leyes Abiertas es una plataforma de elaboración colaborativa
+  {{-- <div class="card-group"> --}}
+    {{-- <div class="col-md-6" style="padding: 0px"> --}}
+      {{-- <div class="col-md-8 col-md-offset-2"> --}}
+        <div class="card-deck" align="center">
+          <div class="card" style="border: 0px"> 
+            <div class="card-block jumbotron toolSelection">
+              <div class="container">
+                <h3 style="color: black; text-align:center;">Co-Construccion de leyes</h3>
+                <p style="color: black; ">El Portal de Leyes Abiertas es una plataforma de elaboración colaborativa
                   de normas donde los diputados ponen a disposición de la ciudadanía sus propuestas y proyectos de ley 
                   para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
                   las propuestas de ley y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
                   enriquecer el debate parlamentario.</p>
-                </div>
-            </a>    
-          </div> --}}
-          {{-- <div class="card">
-            <a href="{{ route('actions') }}">
-                <div class="card-block" style="background-image: url('images/hands.jpg');height: 400px; background-position: center;">
-                  <h3 class="card-title" style="color: black;text-align:center;">Acciones Participativas</h3>
-                  <br>
-                  <p style="color: black;">El Portal de Acciones Participativas es una plataforma de elaboración colaborativa
-                    de propuestas donde los ciudadanos ponen a disposición de la ciudadanía sus propuestas y proyectos 
-                    para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
-                    las propuestas de participacion ciudadana y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
-                    enriquecer el debate de las necesidades de los ciudadanos.</p>
-                </div>
-              </a>    
-          </div> --}}
-{{-- </div> --}}
-
-
-
+              </div>
+            </div>
+            <p><a class="btn btn-primary btn-lg" href="{{ route('projects') }}" role="button">Entrar</a></p>
+          </div>
+          <div class="card" style="border: 0px">
+            <div class="card-block jumbotron toolSelection">
+              <div class="container">
+                <h3 style="color: black; text-align:center;">Acciones Participativas</h3>
+                <p style="color: black;">El Portal de Acciones Participativas es una plataforma de elaboración colaborativa
+                  de propuestas donde los ciudadanos ponen a disposición de la ciudadanía sus propuestas y proyectos 
+                  para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer
+                  las propuestas de participacion ciudadana y generar un nuevo espacio de comunicación con los ciudadanos, que permita 
+                  enriquecer el debate de las necesidades de los ciudadanos.</p>
+              </div>
+            </div>
+            <p><a class="btn btn-primary btn-lg" href="{{ route('actions') }}" role="button">Entrar</a></p>
+          </div>
+        </div>
+        
+      {{-- </div> --}}
+    {{-- </div> --}}
+    {{-- <div class="col-md-6" style="padding: 0px"> --}}
+      {{-- <div class="col-md-8 col-md-offset-2"> --}}
+        
+      {{-- </div> --}}
+    {{-- </div> --}}
+  {{-- </div> --}}
 @endsection

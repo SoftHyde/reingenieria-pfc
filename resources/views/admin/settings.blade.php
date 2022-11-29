@@ -25,67 +25,71 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2"> 
 			<div class="row">
-				<div class="col-md-6">
-					<h4>
-						<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-						Acciones participativas
-					</h4>
-					<a href="{{ route('action.create') }}" class="list-group-item">@lang('admin.create_action') <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
-					<br>
-					<ul>
-						<li>Acciones participativas: <strong>{{$data['actions']}}</strong></li>
-						<li>Propuestas creadas: <strong>{{$data['proposals']}}</strong></li>
-						<li>Obras publicadas: <strong>{{$data['works']}}</strong></li>
-						<li>Comentarios realizados: <strong>{{$data['comments']}}</strong></li>
-					</ul>
-					@if(count($reported_comments)>0)
-						<div class="alert alert-danger">
-							<label>Comentarios denunciados</label>
-							<br>
-							@foreach($reported_comments as $comment)
-								<small>
-									#{{$comment->id}}: {{ strip_tags(substr($comment->comment, 0,30)) }}... En <a href="{{route('proposal', $comment->proposal_id)}}">{{$comment->proposal->title}}</a>
-									<br>
-								</small>
-							@endforeach
-						</div>
-					@endif
+				<div class="row">
+					<div class="col-md-6">
+						<h4>
+							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+							Acciones participativas
+						</h4>
+						<a href="{{ route('action.create') }}" class="list-group-item">@lang('admin.create_action') <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+						<br>
+						<ul>
+							<li>Acciones participativas: <strong>{{$data['actions']}}</strong></li>
+							<li>Propuestas creadas: <strong>{{$data['proposals']}}</strong></li>
+							<li>Obras publicadas: <strong>{{$data['works']}}</strong></li>
+							<li>Comentarios realizados: <strong>{{$data['comments']}}</strong></li>
+						</ul>
+						@if(count($reported_comments)>0)
+							<div class="alert alert-danger">
+								<label>Comentarios denunciados</label>
+								<br>
+								@foreach($reported_comments as $comment)
+									<small>
+										#{{$comment->id}}: {{ strip_tags(substr($comment->comment, 0,30)) }}... En <a href="{{route('proposal', $comment->proposal_id)}}">{{$comment->proposal->title}}</a>
+										<br>
+									</small>
+								@endforeach
+							</div>
+						@endif
+					</div>
+					<div class="col-md-6">
+						<h4>
+							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+							Proyectos de Ley
+						</h4>
+						<a href="{{ route('project.create') }}" class="list-group-item">Crear Proyecto de Ley <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+						<br>
+						<ul>
+							<li>Proyectos de ley: <strong>{{$data['projects']}}</strong></li>
+							<li>Articulos creados: <strong>{{$data['articles']}}</strong></li>
+							<li>Comentarios realizados: <strong>{{$data['commentsArticles']}}</strong></li>
+						</ul>
+						
+					</div>
 				</div>
-				<div class="col-md-6">
-					<h4>
-						<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-						Proyectos de Ley
-					</h4>
-					<a href="{{ route('project.create') }}" class="list-group-item">Crear Proyecto de Ley <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
-					<br>
-					<ul>
-						<li>Proyectos de ley: <strong>{{$data['projects']}}</strong></li>
-						<li>Articulos creados: <strong>{{$data['articles']}}</strong></li>
-						<li>Comentarios realizados: <strong>{{$data['commentsArticles']}}</strong></li>
-					</ul>
-					
-				</div>
-				<div class="col-md-6">
-					<h4>
-						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						Usuarios
-					</h4>
-					<a href="{{route('user.create')}}" class="list-group-item">Crear usuario<span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
-					<br>
-					<ul>
-						<li>Usuarios registrados: <strong>{{$data['users']}}</strong></li>
-						<li>Usuarios registrados con redes sociales: <strong>{{$data['social_users']}}</strong></li>
-						<li>Usuarios suspendidos: <strong>{{$data['banned_users']}}</strong></li>
-					</ul>
-					@if(count($banned_users)>0)
-						<div class="alert alert-info">
-							<label>Usuarios suspendidos</label>
-							<br>
-							@foreach($banned_users as $user)
-								<a href="{{route('user', $user->id)}}">{{$user->name}}</a>, 
-							@endforeach
-						</div>
-					@endif
+				<div class="row"> 
+					<div class="col-md-6">
+						<h4>
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							Usuarios
+						</h4>
+						<a href="{{route('user.create')}}" class="list-group-item">Crear usuario<span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+						<br>
+						<ul>
+							<li>Usuarios registrados: <strong>{{$data['users']}}</strong></li>
+							<li>Usuarios registrados con redes sociales: <strong>{{$data['social_users']}}</strong></li>
+							<li>Usuarios suspendidos: <strong>{{$data['banned_users']}}</strong></li>
+						</ul>
+						@if(count($banned_users)>0)
+							<div class="alert alert-info">
+								<label>Usuarios suspendidos</label>
+								<br>
+								@foreach($banned_users as $user)
+									<a href="{{route('user', $user->id)}}">{{$user->name}}</a>, 
+								@endforeach
+							</div>
+						@endif
+					</div>
 				</div>
 			</div>
 			<hr>

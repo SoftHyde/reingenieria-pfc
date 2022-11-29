@@ -5,26 +5,26 @@
 			<div class="card card-holder"></div>
 		@else
 			<div class="card">
-				<a href="{{ route('project', ['id' => $projects[$j]->id]) }}">
-					<img class="card-img-top img-fluid" align="center" src="/images/proposal.jpg" alt="Card image cap">
-			    	<div class="card-block">
-						<div class="row">
-							<div class="col-md-6">
-								<span style="color: red; margin-top:5px">{{$projects[$j]->countdown()}} Dias restantes</span>
-							</div>
-							<div class="col-md-4 col-md-offset-2">
-								@foreach ($projects[$j]->projectTag as $tag)
-									<span class="tag tag-default" href="{{ route('projectTag', ['tag' => $tag->tag]) }}"> 
-										{{$tag->tag->name}}
-									</span>
-									<br>
-								@endforeach
-							</div>
+				<img class="card-img-top img-fluid" align="center" src="/images/proposal.jpg" alt="Card image cap">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-md-6">
+							<span style="color: red; margin-top:5px">{{$projects[$j]->countdown()}} Dias restantes</span>
 						</div>
-			    		<h3 class="card-title" style="color: black; margin-top:10px">{{ $projects[$j]->name }}</h3>
-			    		<span style="color: black;">{{ strip_tags(substr($projects[$j]->description, 0, 150)) }}...</span>
-			    	</div>
-			    </a>
+						<div class="col-md-6" align="right">
+							@foreach ($projects[$j]->projectTag as $tag)
+								<span class="tag tag-default"> 
+									<a href="{{ route('projectTag', ['tag' => $tag->tag]) }}" style="text-decoration: none; color:white">{{$tag->tag->name}}</a>
+								</span>
+							@endforeach
+						</div>
+					</div>
+					<h3 class="card-title" style="color: black; margin-top:10px">{{ $projects[$j]->name }}</h3>
+					<span style="color: black;">{{ strip_tags(substr($projects[$j]->description, 0, 150)) }}...</span>
+				</div>
+				<div class="row" align="center">
+					<p><a class="btn btn-primary btn-lg" href="{{ route('project', ['id' => $projects[$j]->id]) }}">Ver mas</a></p>
+				</div>
 			</div>
 		@endif
 		<hr>
