@@ -430,6 +430,17 @@ Route::group(['middleware' => 'auth'], function () {
 			'as'	=> 'project.store'
 			]);
 
+		Route::get('proyectos/editar-proyecto/{id}', [
+			'uses' 	=> 'ProjectController@edit',
+			'as'	=> 'project.edit'
+			]);
+
+		Route::delete('eliminar-projecto', [
+			'uses'	=> 'ProjectController@destroy',
+			'as'	=> 'project.delete'
+			]);
+
+
 		
 
 	});

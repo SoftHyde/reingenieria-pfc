@@ -21,7 +21,7 @@
 	@endfor
 </div>
 
-@if (Auth::check() and Auth::user()->role == 'moderador')
+@if (Auth::check() and (Auth::user()->role == 'moderador' or Auth::user()->role == 'admin'))
 <div class="row text-center">
 	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
 </div>

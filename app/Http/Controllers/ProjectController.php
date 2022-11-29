@@ -7,6 +7,7 @@ use App\Project;
 use App\User;
 use App\Tag;
 use App\ProjectTag;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -117,10 +118,20 @@ class ProjectController extends Controller
 
     public function showTag($tag)
     {   
-        $tagName=Tag::findOrFail($tag);
-        $tagName=$tagName->name;
+        // Consulta sql eloquent
+        // $projects = DB::table('project_tags')
+        // ->select('projects.*')
+        // ->join('projects','project_tags.project_id','=','projects.id')
+        // ->where('project_tags.tag_id','=',$tag)
+        // ->get();
+        
+        // $results = DB::select('select projects.* from project_tags 
+        // inner join projects on project_tags.project_id=projects.id
+        // where project_tags.tag_id='$tag);
+        // $tagName=Tag::findOrFail($tag);
+        // $tagName=$tagName->name;
         $projects=Project::whereRelation('projectTag', 'tag_id', '=', $tag)->paginate();
-        return view('projects.search',compact('projects','tag','tagName'));
+        return view('projects.index',compact('projects'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -151,9 +162,14 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $project   = Project::findOrFail($request->get('project_id'));
+        $title=$project->name;
+        $project->delete();
+
+        return redirect(route('projects'))
+            ->with('alert', "El proyecto de ley '" . $title . "' ha sido eliminada con éxito.");
     }
 
 

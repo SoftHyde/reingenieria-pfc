@@ -32,7 +32,7 @@
 				<br>
 				<div class="form-group">
 					<label class="control-label">Descripción</label>
-					<textarea id="summernote" class="form-control" rows="3" name="description" required>{{old('description')}}</textarea>
+					<textarea  class="form-control" rows="3" name="description" required>{{old('description')}}</textarea>
 				</div>
 				<div class="form-group">
 					<label class="control-label">¿Cómo participo?</label>

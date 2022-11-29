@@ -13,12 +13,12 @@
                                             <span style="color: red; margin-top:5px">{{$projects[$j]->countdown()}} Dias restantes</span>
                                         </div>
                                         <div class="col-md-2 col-md-offset-2">
-                                            <span class="tag tag-default"> 
-                                                @foreach ($projects[$j]->projectTag as $tagg)
-                                                <a href="{{ route('projectTag', ['tag' => $tagg->tag]) }}">{{$tagg->tag->name}}</a>
+                                            @foreach ($projects[$j]->projectTag as $tagg)
+                                            <span class="tag tag-default" href="{{ route('projectTag', ['tag' => $tagg->tag]) }}"> 
+                                                {{$tagg->tag->name}}
+                                            </span>
                                                 <br>
                                                 @endforeach
-                                            </span>
                                         </div>
                                     </div>
                                     <h3 class="card-title" style="color: black; margin-top:10px">{{ $projects[$j]->name }}</h3>
