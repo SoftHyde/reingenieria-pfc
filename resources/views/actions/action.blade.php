@@ -44,7 +44,7 @@
 					</div>
 					<div class="col-md-2">
 						@if(Gate::allows('admin_action', $action->admin_id))
-							<div class="dropdown">
+							<div class="dropdown" style="margin-top: 20px">
 							  <button class="btn btn-modern dropdown-toggle btn-lg" type="button" data-toggle="dropdown">Administrar
 							  <span class="caret"></span></button>
 							  <ul class="dropdown-menu">

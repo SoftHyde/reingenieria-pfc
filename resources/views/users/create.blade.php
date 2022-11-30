@@ -39,9 +39,14 @@
 						<option>moderador</option>
 				  	</select>
 				  	<br>
-				  	<div class="alert alert-danger"><strong>¡Cuidado! </strong>Si creas un usuario tipo 'admin', le darás acceso a todas las funciones de administrador.</div>
-					<br>
-					<div class="alert alert-danger"><strong>¡Cuidado! </strong>Si creas un usuario tipo 'moderador', le darás acceso a todas las funciones de moderador.</div>
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<div class="alert alert-danger"><strong>¡Cuidado! </strong>Si creas un usuario tipo 'admin', le darás acceso a todas las funciones de administrador.</div>
+						</div>
+						<div class="col-md-6">
+							<div class="alert alert-danger"><strong>¡Cuidado! </strong>Si creas un usuario tipo 'moderador', le darás acceso a todas las funciones de moderador.</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="form-group">

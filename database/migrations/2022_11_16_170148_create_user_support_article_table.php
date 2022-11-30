@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
 
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('article_id')->unsigned()->nullable();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 
             $table->timestamps();
         });

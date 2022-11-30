@@ -17,7 +17,7 @@ class CreateUserVoteOption extends Migration
             $table->increments('id');
 
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('option_id')->unsigned();
             $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');

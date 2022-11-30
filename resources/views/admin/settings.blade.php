@@ -55,14 +55,14 @@
 					<div class="col-md-6">
 						<h4>
 							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-							Proyectos de Ley
+							Proyectos de Normativa
 						</h4>
-						<a href="{{ route('project.create') }}" class="list-group-item">Crear Proyecto de Ley <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+						<a href="{{ route('project.create') }}" class="list-group-item">Crear Proyecto de Normativa <span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
 						<br>
 						<ul>
-							<li>Proyectos de ley: <strong>{{$data['projects']}}</strong></li>
+							<li>Proyectos de Normativa: <strong>{{$data['projects']}}</strong></li>
 							<li>Articulos creados: <strong>{{$data['articles']}}</strong></li>
-							<li>Comentarios realizados a Proyectos: <strong>{{$data['commentsProjects']}}</strong></li>
+							<li>Comentarios realizados a Normativas: <strong>{{$data['commentsProjects']}}</strong></li>
 							<li>Comentarios realizados a Articulos: <strong>{{$data['commentsArticles']}}</strong></li>
 						</ul>
 						
@@ -98,13 +98,35 @@
 				<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
 				Estadísticas
 			</h4>
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				  Herramienta
+				  <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				  <li><a onclick="mostrarAcciones()">Acciones Participativas</a></li>
+				  <li><a onclick="mostrarProyectos()">Co-Creacion de Normativas</a></li>
+				</ul>
+			  </div>
 			<br>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6" id="GraficoAcciones">
 					Propuestas, comentarios y calificaciones publicadas por mes:
 					<div id="myfirstchart" style="height: 250px;"></div>
+				</div>
+				<div class="col-md-6" id="GraficoProyectos">
+					Proyectos, articulos y comentarios publicados por mes:
+					<div id="mythirdchart" style="height: 250px;"></div>
+				</div>
+				<div class="col-md-6">
+					Usuarios por distrito:
+					<div id="mysecondchart" style="height: 230px;"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" align="center">
 					<div class="row">
-						<div class="col-md-3 col-md-offset-3" align="right">
+						<div class="col-md-3 col-md-offset-2" align="right">
 							Meses:
 						</div>
 					   	<div class="col-md-3" align="left">
@@ -118,8 +140,6 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					Usuarios por distrito:
-					<div id="mysecondchart" style="height: 200px;"></div>
 					<a href="/stats" class="list-group-item">Ver estadísticas de sesiones de usuario <span class="pull-right"> <i class="fa fa-area-chart" aria-hidden="true"></i> <i class="fa fa-bar-chart" aria-hidden="true"></i> <i class="fa fa-line-chart" aria-hidden="true"></i></span> </a>
 				</div>
 			</div>
@@ -146,8 +166,18 @@ var months = Morris.Area({
   xkey: 'y',
   ykeys: ['propuestas', 'comentarios', 'calificaciones'],
   labels: ['Propuestas', 'Comentarios', 'Calificaciones'],
-  
 });
+
+var months = Morris.Area({
+  element: 'mythirdchart',
+  data: [
+    { y: '2017-01', projects: 0, articles:0, commentsProjects: 0, commentsArticles: 0 }
+  ],
+  xkey: 'y',
+  ykeys: ['propuestas', 'comentarios', 'calificaciones'],
+  labels: ['Propuestas', 'Comentarios', 'Calificaciones'],
+});
+
 // Muestro datos de acuerdo la cantidad de meses
 $("#months_select")
   .change(function () {
@@ -184,6 +214,17 @@ $.ajax({
     .fail(function() {
       alert( "error occured" );
     });
+
+
+function mostrarAcciones(){
+	document.getElementById('GraficoAcciones').style.display = 'block';
+	document.getElementById('GraficoProyectos').style.display = 'none';
+}
+
+function mostrarProyectos(){
+	document.getElementById('GraficoAcciones').style.display = 'none';
+	document.getElementById('GraficoProyectos').style.display = 'block';
+}
 
 </script>
 @endsection

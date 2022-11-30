@@ -49,7 +49,7 @@
           <div class="card" style="border: 0px"> 
             <div class="card-block jumbotron toolSelection">
               <div class="container">
-                <h3 style="color: black; text-align:center;">Co-Construccion de leyes</h3>
+                <h3 style="color: black; text-align:center;">Co-Construccion de Normativas</h3>
                 <p style="color: black; ">El Portal de Leyes Abiertas es una plataforma de elaboración colaborativa
                   de normas donde los diputados ponen a disposición de la ciudadanía sus propuestas y proyectos de ley 
                   para incorporar nuevos puntos de vista a sus iniciativas. El objetivo de la plataforma es enriquecer

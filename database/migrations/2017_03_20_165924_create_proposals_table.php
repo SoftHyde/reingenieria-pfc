@@ -18,7 +18,7 @@ class CreateProposalsTable extends Migration
             $table->string('title');
             $table->longText('content');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('action_id')->unsigned();
             $table->foreign('action_id')->references('id')->on('actions')->onDelete('cascade');
             $table->longText('closing_message')->nullable()->default(null);

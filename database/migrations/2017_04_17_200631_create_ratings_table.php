@@ -20,10 +20,10 @@ class CreateRatingsTable extends Migration
             $table->longText('comment');
 
             $table->integer('work_id')->unsigned()->nullable();
-            $table->foreign('work_id')->references('id')->on('works')->onDelete('set null');;
+            $table->foreign('work_id')->references('id')->on('works')->onDelete('cascade');;
 
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

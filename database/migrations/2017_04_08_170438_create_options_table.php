@@ -16,7 +16,7 @@ class CreateOptionsTable extends Migration
             $table->increments('id');
 
             $table->integer('proposal_id')->unsigned()->nullable();
-            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('set null');
+            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
 
             $table->integer('poll_id')->unsigned();
             $table->foreign('poll_id')->references('id')->on('polls')->onDelete('cascade');
