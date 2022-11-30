@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use App\Project;
 use App\Article;
 use App\CommentArticle;
+use App\CommentProject;
 
 class AdminController extends Controller
 {
@@ -34,6 +35,7 @@ class AdminController extends Controller
             'works'         => Work::all()->count(),
             'projects'      => Project::all()->count(),
             'articles'      => Article::all()->count(),
+            'commentsProjects'      => CommentProject::all()->count(),
             'commentsArticles'      => CommentArticle::all()->count()
         ];
         return view('admin.settings', compact('data', 'banned_users', 'reported_comments'));

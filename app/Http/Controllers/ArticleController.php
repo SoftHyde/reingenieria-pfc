@@ -142,7 +142,7 @@ class ArticleController extends Controller
             'comment'   => 'required'
             ]);
 
-        app('App\Http\Controllers\CommentProjectController')->store($request);
+        app('App\Http\Controllers\CommentArticleController')->store($request);
 
         return redirect(route('article',[$request->get('article_id'),$request->get('numero')]))
             ->with('alert', 'El comentario ha sido publicado con éxito');

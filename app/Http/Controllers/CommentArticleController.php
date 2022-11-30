@@ -3,37 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Gate;
 use Validator;
-use App\CommentProject;
-
-class CommentProjectController extends Controller
+use App\CommentArticle;
+class CommentArticleController extends Controller
 {
     public function store(Request $request)
     {
-        $comment = new CommentProject;
+        $comment = new CommentArticle;
 
         $comment->comment       = $request->get('comment');
-        $comment->project_id   = $request->get('project_id');
+        $comment->article_id   = $request->get('article_id');
         
         $comment->user_name     = auth()->user()->name;
        
-        auth()->user()->CommentProject()->save($comment);
+        auth()->user()->commentArticle()->save($comment);
     }
 
-    public function edit($id)
+    public function edit($id,$numero)
     {
-        $comment = CommentProject::findOrFail($id);
+        $comment = CommentArticle::findOrFail($id);
 
         if (Gate::denies('edit_comment', $comment)) {
             abort(403, 'No autorizado');
         }
 
-        return view('commentsProject/edit', compact('comment'));
+        return view('commentsArticles/edit', compact('comment','numero'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$numero)
     {
         $validation = Validator::make($request->all(), [
             'comment'      => 'required'
@@ -45,7 +43,7 @@ class CommentProjectController extends Controller
             );
         }
 
-        $comment = CommentProject::findOrFail($id);
+        $comment = CommentArticle::findOrFail($id);
 
         if (Gate::denies('edit_comment', $comment)) {
             abort(403, 'No autorizado');
@@ -55,13 +53,13 @@ class CommentProjectController extends Controller
 
         $comment->save();
 
-        return redirect()->route('project',[$comment->project->id])
+        return redirect()->route('article',[$comment->article->id,$request->get('numero')])
             ->with('alert', 'El comentario ha sido editado con éxito');
     }
 
     public function like(Request $request) {
         $user = auth()->user();
-        $comment   = CommentProject::findOrFail($request->get('comment_id'));
+        $comment   = CommentArticle::findOrFail($request->get('comment_id'));
         $likers = $comment->likers()->pluck('user_id')->toArray();
 
         
@@ -70,7 +68,7 @@ class CommentProjectController extends Controller
                 ->with('warning', 'Ya diste me gusta a este comentario');
         }
 
-        $user->likeCommentProject()->attach($comment->id);
+        $user->likeCommentArticle()->attach($comment->id);
 
         $data = [
             'comment_id'    => $comment->id,
@@ -83,7 +81,7 @@ class CommentProjectController extends Controller
     public function unlike(Request $request) {
 
         $user = auth()->user();
-        $comment   = CommentProject::findOrFail($request->get('comment_id'));
+        $comment   = CommentArticle::findOrFail($request->get('comment_id'));
         $likers = $comment->likers()->pluck('user_id')->toArray();
 
         if ( ! in_array($user->id, $likers) ) {
@@ -91,7 +89,7 @@ class CommentProjectController extends Controller
                 ->with('warning', 'No has dado me gusta a este comentario');
         }
 
-        $user->likeCommentProject()->detach($comment->id);
+        $user->likeCommentArticle()->detach($comment->id);
 
         $data = [
             'comment_id'    => $comment->id,
@@ -103,8 +101,8 @@ class CommentProjectController extends Controller
 
     public function destroy(Request $request){
 
-        $comment   = CommentProject::findOrFail($request->get('comment_id'));
-        $project_id  = $comment->project_id;
+        $comment   = CommentArticle::findOrFail($request->get('comment_id'));
+        $article_id  = $comment->article_id;
         $comment->delete();
 
         return redirect()->back()
@@ -113,7 +111,7 @@ class CommentProjectController extends Controller
     
     public function report($id)
     {
-        $comment = CommentProject::findOrFail($id);
+        $comment = CommentArticle::findOrFail($id);
 
         $comment->reported = $comment->reported + 1;
 

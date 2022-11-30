@@ -29,5 +29,9 @@ class Project extends Model
         return((new Carbon($this->limit_date))->diffInDays(Carbon::now()));
      }
 
+     public function commentProject(){
+        return $this->hasMany(CommentProject::class);
+    }
+
 
 }

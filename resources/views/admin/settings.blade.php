@@ -62,7 +62,8 @@
 						<ul>
 							<li>Proyectos de ley: <strong>{{$data['projects']}}</strong></li>
 							<li>Articulos creados: <strong>{{$data['articles']}}</strong></li>
-							<li>Comentarios realizados: <strong>{{$data['commentsArticles']}}</strong></li>
+							<li>Comentarios realizados a Proyectos: <strong>{{$data['commentsProjects']}}</strong></li>
+							<li>Comentarios realizados a Articulos: <strong>{{$data['commentsArticles']}}</strong></li>
 						</ul>
 						
 					</div>

@@ -106,6 +106,9 @@ class User extends Authenticatable
     public function commentArticle(){
         return $this->hasMany(CommentArticle::class);
     }
+    public function commentProject(){
+        return $this->hasMany(CommentProject::class);
+    }
 
     public function moderator(){
         return $this->hasMany(Moderator::class);
@@ -114,6 +117,11 @@ class User extends Authenticatable
     public function likeCommentArticle(){
         
         return $this->belongsToMany(CommentArticle::class, 'user_like_comment_article')->withTimestamps();
+    }
+
+    public function likeCommentProject(){
+        
+        return $this->belongsToMany(CommentProject::class, 'user_like_comment_project')->withTimestamps();
     }
     
 

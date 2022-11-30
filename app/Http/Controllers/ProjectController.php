@@ -110,9 +110,13 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
+          
+
+
         $project = Project::findOrFail($id);
+        $comments   = $project->commentProject;
         $articles = $project->article()->paginate();
-        return view('projects/project', compact('project','articles'));
+        return view('projects/project', compact('project','articles','comments'));
     }
 
 
@@ -195,4 +199,16 @@ class ProjectController extends Controller
             ->with('alert', 'La propuesta ha sido creada con éxito');
 
     }
+    public function postComment(Request $request) {
+        
+        $this->validate($request,[
+            'comment'   => 'required'
+            ]);
+
+        app('App\Http\Controllers\CommentProjectController')->store($request);
+
+        return redirect(route('project',[$request->get('project_id')]))
+            ->with('alert', 'El comentario ha sido publicado con éxito');
+    }
+
 }

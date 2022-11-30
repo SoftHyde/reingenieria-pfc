@@ -458,35 +458,69 @@ Route::group(['middleware' => 'auth'], function () {
 		]);
 	
 	Route::get('editar-comentario-articulo/{id}/{numero}', [
-		'uses'	=> 'CommentProjectController@edit',
+		'uses'	=> 'CommentArticleController@edit',
 		'as'	=> 'commentarticle.edit'
 		]);
 
 	Route::put('editar-comentario-articulo/{id}/{numero}', [
-		'uses'	=> 'CommentProjectController@update',
+		'uses'	=> 'CommentArticleController@update',
 		'as'	=> 'commentarticle.update'
 		]);
 
 	Route::post('me-gusta-comentario-articulo', [
-		'uses'	=> 'CommentProjectController@like',
+		'uses'	=> 'CommentArticleController@like',
 		'as'	=> 'commentarticle.like'
 		]);	
 
 	Route::delete('ya-no-me-gusta-comentario-articulo', [
-		'uses'	=> 'CommentProjectController@unlike',
+		'uses'	=> 'CommentArticleController@unlike',
 		'as'	=> 'commentarticle.unlike'
 		]);
 
 	Route::delete('borrar-comentario-articulo', [
-		'uses'	=> 'CommentProjectController@destroy',
+		'uses'	=> 'CommentArticleController@destroy',
 		'as'	=> 'commentarticle.delete'
 		]);
 
 	Route::get('denunciar-comentario-articulo/{id}/{numero}', [
-		'uses'	=> 'CommentProjectController@report',
+		'uses'	=> 'CommentArticleController@report',
 		'as'	=> 'commentarticle.report'
 		]);
+	//Comentar Projectos
+	Route::post('comentar-projecto', [
+		'uses'	=> 'ProjectController@postComment',
+		'as'	=> 'project.comment'
+		]);
+	
+	Route::get('editar-comentario-projecto/{id}', [
+		'uses'	=> 'CommentProjectController@edit',
+		'as'	=> 'commentproject.edit'
+		]);
 
+	Route::put('editar-comentario-projecto/{id}', [
+		'uses'	=> 'CommentProjectController@update',
+		'as'	=> 'commentproject.update'
+		]);
+
+	Route::post('me-gusta-comentario-projecto', [
+		'uses'	=> 'CommentProjectController@like',
+		'as'	=> 'commentproject.like'
+		]);	
+
+	Route::delete('ya-no-me-gusta-comentario-projecto', [
+		'uses'	=> 'CommentProjectController@unlike',
+		'as'	=> 'commentproject.unlike'
+		]);
+
+	Route::delete('borrar-comentario-projecto', [
+		'uses'	=> 'CommentProjectController@destroy',
+		'as'	=> 'commentproject.delete'
+		]);
+
+	Route::get('denunciar-comentario-projecto/{id}', [
+		'uses'	=> 'CommentProjectController@report',
+		'as'	=> 'commentproject.report'
+		]);
 	
 	//Apoyo Articulo
 

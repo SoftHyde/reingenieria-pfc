@@ -33,6 +33,9 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
+				@include('partials/warning')
+				@include('partials/errors')
+				@include('partials/success')
 				<div class="row">
 					<div class="col-md-2">
 					</div>
@@ -117,6 +120,42 @@
 	</div>
 </div>
 
+<div class="jumbotron">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+			  	<h3><i class="fa fa-comments" aria-hidden="true"></i> Discusión</h3>
+				  @include('partials/comments_project_list')
+				  	@if(Auth::check())
+					  	<ul class="nav nav-tabs">
+					    	<li class="active"><a href="#"> Comentar </a></li>
+					  	</ul>
+						<form class="form-horizontal" role="form" method="POST" action="{{ route('project.comment')}}">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							
+							<input type="hidden" name="project_id" value="{{ $project->id }}">
+						
+
+							<div class="form-group">
+								<div class="col col-md-12">
+									<textarea class="form-control" rows="5" name="comment" required>{{old('comment')}}</textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col col-md-12">
+									<button type="submit" class="btn btn-default" style="margin-right: 15px;">
+									Publicar comentario
+									</button>
+								</div>
+							</div>
+						</form>
+					@else
+						<p class="text-muted" align="center">Inicia sesión para comentar</p>
+					@endif
+			</div>
+		</div>
+	</div>
+</div>	
 
 @if(count($articles) > 0 )
 <div class="jumbotron no-margin-bottom page-section" id="propuestas">
@@ -152,7 +191,10 @@
 <script src="/js/scroll.js"></script>
 <script src="/js/button_block.js"></script>
 <script src="/js/reload_poll.js"></script>
-
+<script src="/js/like_comment.js"></script>
+<script src="/js/unlike_comment.js"></script>
+<script src="/js/like_comment_project.js"></script>
+<script src="/js/unlike_comment_project.js"></script>
 <script type="text/javascript" src="/bower_components/slick-carousel/slick/slick.min.js"></script>
 
 <script type="text/javascript">
@@ -181,5 +223,7 @@
                   ]
 	});
 </script>
+
+	
 
 @endsection
