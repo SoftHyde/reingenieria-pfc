@@ -32,7 +32,9 @@
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- summernote -->
-    <link rel="stylesheet" type="text/css" href="/bower_components/summernote/dist/summernote.css">
+    {{-- <link rel="stylesheet" type="text/css" href="/bower_components/summernote/dist/summernote.css"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
     <!-- Social Share Kit CSS -->
     <link rel="stylesheet" href="/bower_components/social-share-kit/dist/css/social-share-kit.css" type="text/css">
     <!-- Bootstrap social -->
@@ -134,8 +136,10 @@
     
     <script src="/js/activate_confirmation.js"></script>
 
+    
     <!-- include summernote js-->
-    <script src="/bower_components/summernote/dist/summernote.min.js"></script>
+    {{-- <script src="/bower_components/summernote/dist/summernote.min.js"></script> --}}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js" defer></script>
 
     <!-- Social Share Kit JS -->
     <script type="text/javascript" src="/bower_components/social-share-kit/dist/js/social-share-kit.js"></script>
@@ -143,9 +147,11 @@
     <script type="text/javascript">
         $(document).ready(function() {
             
-            $('#summernote').summernote({
-              height:200,
-            });
+            // $('#summernote').summernote({
+            //   height:200,
+            // });
+            $('#summernote').summernote();
+
 
             SocialShareKit.init();
         });

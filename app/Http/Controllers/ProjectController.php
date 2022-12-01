@@ -7,6 +7,7 @@ use App\Project;
 use App\User;
 use App\Tag;
 use Gate;
+use Validator;
 use App\ProjectTag;
 use App\Moderator;
 use Illuminate\Support\Facades\DB;
@@ -145,7 +146,13 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        if (Gate::denies('edit_project', $project)) {
+            abort(403, 'No autorizado');
+        }
+
+        return view('projects/edit', compact('project'));
     }
 
     /**
@@ -157,7 +164,72 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        $validation = Validator::make($request->all(), [
+            'description'      => 'required'
+        ]);
+
+        if ($validation->fails()) {
+            $this->throwValidationException(
+                $request, $validation
+            );
+        }
+
+        $project = Project::findOrFail($id);
+
+        if (Gate::denies('edit_project', $project)) {
+            abort(403, 'No autorizado');
+            DB::rollBack();
+        }
+
+        foreach ($request->get('tag') as $tag){
+            
+            if ( ! Tag::where('name', $tag['tag'] )->first() ) {
+                $newTag= new Tag;
+                $newTag -> name = $tag['tag'];
+                $newTag->save();
+            }
+        }
+
+        $project->name          = $request->get('name');
+        $project->description    = $request->get('description');
+        $project->limit_date = $request->get('limit_date');
+
+        foreach($project->moderator as $moderator){
+            $mod = Moderator::where('id', $moderator['id'] )->first();
+            $mod->delete();
+        }
+        foreach($project->projectTag as $ptag){
+            $pobj = ProjectTag::where('id', $ptag['id'] )->first();
+            $pobj->delete();
+        }
+
+        foreach ($request->get('moderator_email') as $moderator){
+            if ( ! User::where('email', $moderator['moderator_email'] )->first()) {
+                DB::rollBack();
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors([
+                        'admin_email' => 'No existe ningún usuario con ese email'
+                        ]);
+            }
+            $user = User::where('email', $moderator['moderator_email'] )->first();
+
+            $newModerator= new Moderator;
+            $newModerator -> user_id = $user->id;
+            $newModerator->project_id = $project->id;
+            $newModerator->save();
+        }
+        foreach ($request->get('tag') as $tag){
+            $ptag = Tag::where('name', $tag['tag'] )->first();
+            $projectTag= new ProjectTag;
+            $projectTag->project_id = $project->id;
+            $projectTag->tag_id = $ptag->id;
+            $projectTag->save();
+        }
+        DB::commit();
+        return redirect()->route('project', [$project->id])
+            ->with('alert', 'La propuesta ha sido editada con éxito');
     }
 
     /**

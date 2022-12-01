@@ -135,7 +135,7 @@
 @endsection
 
 @section('scripts')
-<script src="/bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js" defer></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	var options = {

@@ -29,7 +29,7 @@
 					</div>
 					<div class="form-group">
 						<label>Contenido</label>
-						<textarea id="summernote" class="form-control" rows="5" name="content" required>{{$proposal->content}}</textarea>
+						<textarea  class="form-control" rows="5" name="content" required>{{$proposal->content}}</textarea>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary" style="margin-right: 15px;">Enviar</button>

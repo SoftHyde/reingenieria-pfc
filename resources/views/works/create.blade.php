@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">Contenido</label>
 								<div class="col-md-10">
-									<textarea id="summernote" class="form-control" rows="8" name="content" required>{{old('content')}}</textarea>
+									<textarea  class="form-control" rows="8" name="content" required>{{old('content')}}</textarea>
 								</div>
 							</div>
 

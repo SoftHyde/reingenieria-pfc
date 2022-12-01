@@ -33,7 +33,7 @@
 				<br>
 				<div class="form-group">
 					<label class="control-label">Descripción</label>
-					<textarea id="summernote" class="form-control" rows="3" name="description" required>{{$action->description}}</textarea>
+					<textarea class="form-control" rows="3" name="description" required>{{$action->description}}</textarea>
 				</div>
 				<div class="form-group">
 					<label class="control-label">¿Cómo participo?</label>
@@ -122,7 +122,7 @@
 @endsection
 
 @section('scripts')
-<script src="/bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js" defer></script>
 <script type="text/javascript">
 $(document).ready(function () {
 

@@ -397,7 +397,11 @@ Route::group(['middleware' => 'auth'], function () {
 			'uses'	=> 'UserController@index_districts',
 			'as'	=> 'users.index_districts'
 			]);
-
+		// Info para tags			
+		Route::get('info-tags', [
+			'uses'	=> 'TagController@index',
+			'as'	=> 'tag.index'
+			]);
 
 		// Usuarios
 		Route::get('suspender-usuario/{id}', [
@@ -438,6 +442,11 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('proyectos/editar-proyecto/{id}', [
 			'uses' 	=> 'ProjectController@edit',
 			'as'	=> 'project.edit'
+			]);
+		
+		Route::put('proyectos/editar-proyecto/{id}', [
+			'uses'	=> 'ProjectController@update',
+			'as'	=> 'project.update'
 			]);
 
 		Route::delete('eliminar-projecto', [

@@ -32,7 +32,7 @@
 
 					<div class="form-group">
 						<label class="control-label">Contenido</label>
-						<textarea id="summernote" class="form-control" rows="8" name="content" required>{{$work->content}}</textarea>
+						<textarea  class="form-control" rows="8" name="content" required>{{$work->content}}</textarea>
 					</div>
 
 					<div class="form-group">

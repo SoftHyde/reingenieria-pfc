@@ -103,9 +103,9 @@
 				  Herramienta
 				  <span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				  <li><a onclick="mostrarAcciones()">Acciones Participativas</a></li>
-				  <li><a onclick="mostrarProyectos()">Co-Creacion de Normativas</a></li>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" option value="Man">
+				  <li><a onclick="mostrarAcciones()" >Acciones Participativas</a></li>
+				  <li><a onclick="mostrarProyectos() ">Co-Creacion de Normativas</a></li>
 				</ul>
 			  </div>
 			<br>
@@ -114,7 +114,7 @@
 					Propuestas, comentarios y calificaciones publicadas por mes:
 					<div id="myfirstchart" style="height: 250px;"></div>
 				</div>
-				<div class="col-md-6" id="GraficoProyectos">
+				<div class="col-md-6" id="GraficoProyectos" style='display : none;'>
 					Proyectos, articulos y comentarios publicados por mes:
 					<div id="mythirdchart" style="height: 250px;"></div>
 				</div>
