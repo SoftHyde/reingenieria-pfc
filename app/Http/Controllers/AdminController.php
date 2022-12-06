@@ -51,7 +51,12 @@ class AdminController extends Controller
                                "propuestas"     => Proposal::whereMonth('created_at', '=', $sub->month)->count(),
                                "comentarios"    => Comment::whereMonth('created_at', '=', $sub->month)->count(),
                                "obras"          => Work::whereMonth('created_at', '=', $sub->month)->count(),
+                               "proyectos"    => Project::whereMonth('created_at', '=', $sub->month)->count(),
+                               "articulos"          => Article::whereMonth('created_at', '=', $sub->month)->count(),
+                               "comentariosProyectos"    => CommentProject::whereMonth('created_at', '=', $sub->month)->count(),
+                               "comentariosArticulos"    => CommentArticle::whereMonth('created_at', '=', $sub->month)->count(),
                                "calificaciones" => Rating::whereMonth('created_at', '=', $sub->month)->count()]);
+                               
         }
 
         return json_encode($data);

@@ -38,7 +38,7 @@
                     <tr>
                         <th>Moderador mail</th>
                         <th>Opcion</th>
-                    </tr>
+                    
                     <tr>
                         <td><input id="admin_email" type="text" name="moderator_email[0][moderator_email]" placeholder="Ingrese el mail del moderador" class="form-control" value="{{ old('project_tag') }}" required/>
                         </td>
@@ -47,7 +47,7 @@
                 </table>
 				<br>
                 <table class="table table-bordered" id="dynamicAddRemove">
-                    <tr>
+                    <tr id="top-Tag">
                         <th>Tag</th>
                         <th>Opcion</th>
                     </tr>

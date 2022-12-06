@@ -59,6 +59,7 @@
 			        </a>
 				</div>
 				<div id="likes_section" class="col col-md-6" align="right">
+				@if($project->countdown()>0)
 					@if(Gate::allows('like_comment_article', $comment))
 						<form id="like_comment{{$comment->id}}" role="form" method="POST" onsubmit="likeCommentArticle({{$comment->id}})" action="{{ route('commentarticle.like')}}">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -108,6 +109,11 @@
 						&nbsp;	
 						<span class="proposal-text">{{count($comment->likers)}}</span>
 					@endif
+				@else
+				<i class="fa fa-heart" aria-hidden="true" style="color: #ff5555;"></i>
+				&nbsp;	
+				<span class="proposal-text">{{count($comment->likers)}}</span>	
+				@endif
 				</div>
 			</div>
 		</div>

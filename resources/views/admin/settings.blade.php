@@ -114,7 +114,7 @@
 					Propuestas, comentarios y calificaciones publicadas por mes:
 					<div id="myfirstchart" style="height: 250px;"></div>
 				</div>
-				<div class="col-md-6" id="GraficoProyectos" style='display : none;'>
+				<div class="col-md-6" id="GraficoProyectos">
 					Proyectos, articulos y comentarios publicados por mes:
 					<div id="mythirdchart" style="height: 250px;"></div>
 				</div>
@@ -157,6 +157,7 @@
 
 <script type="text/javascript">
 
+
 // Grafico de progresion mensual
 var months = Morris.Area({
   element: 'myfirstchart',
@@ -174,8 +175,8 @@ var months = Morris.Area({
     { y: '2017-01', projects: 0, articles:0, commentsProjects: 0, commentsArticles: 0 }
   ],
   xkey: 'y',
-  ykeys: ['propuestas', 'comentarios', 'calificaciones'],
-  labels: ['Propuestas', 'Comentarios', 'Calificaciones'],
+  ykeys: ['proyectos','articulos', 'comentariosProyectos', 'comentariosArticulos'],
+  labels: ['Proyectos','Articulos', 'Comentarios a Proyectos', 'Comentarios a Articulos'],
 });
 
 // Muestro datos de acuerdo la cantidad de meses

@@ -88,6 +88,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-6">
+				@if($project->countdown()>0)
 					@if(Gate::allows('support_article', $article->supporters()))
 						<form role="form" method="POST" action="{{ route('article.support')}}">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -121,6 +122,12 @@
 							<span class="proposal-text">{{count($supporters)}}</span>
 						</p>
 					@endif
+				@else
+					<p>
+					<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>	
+					<span class="proposal-text">{{count($supporters)}}</span>
+					</p>			
+				@endif
 				</div>
 				<div class="col-md-6">
 					<span class="text-muted pull-right">
@@ -142,6 +149,7 @@
 			<div class="col-md-8 col-md-offset-2">
 			  	<h3><i class="fa fa-comments" aria-hidden="true"></i> Discusión</h3>
 				  @include('partials/comments_article_list')
+				  @if($project->countdown()>0)
 				  	@if(Auth::check())
 					  	<ul class="nav nav-tabs">
 					    	<li class="active"><a href="#"> Comentar </a></li>
@@ -169,6 +177,9 @@
 					@else
 						<p class="text-muted" align="center">Inicia sesión para comentar</p>
 					@endif
+				@else
+					<p class="text-muted" align="center">Ha terminado el tiempo de participacion</p>	
+				@endif
 			</div>
 		</div>
 	</div>

@@ -26,7 +26,14 @@ class Project extends Model
     }
 
     public function countdown(){
-        return((new Carbon($this->limit_date))->diffInDays(Carbon::now()));
+        // 
+        if((new Carbon($this->limit_date))->greaterThan(Carbon::now())){
+            return((new Carbon($this->limit_date))->diffInDays(Carbon::now()));
+        }
+        else{
+            return 0;
+        }
+        
      }
 
      public function commentProject(){
