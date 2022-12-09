@@ -142,13 +142,13 @@
 
     @yield('content')
 
+    <a href="#" class="flotanteVisible scroll-top back-to-top"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
+
     <footer class="footer" style="background-color: #f0f0f0;">
       &copy; 2022 Lucas Rios | Eric Priemer
     </footer>
 
   </body>
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -171,18 +171,16 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            
             // $('#summernote').summernote({
             //   height:200,
             // });
             $('#summernote').summernote();
-
-
             SocialShareKit.init();
         });
     </script>
-    
 
+    <script src="/js/scroll.js"></script>
+    
     @yield('scripts')
 
 </html>
