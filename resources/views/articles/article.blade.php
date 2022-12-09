@@ -93,6 +93,7 @@
 						<form role="form" method="POST" action="{{ route('article.support')}}">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<input type="hidden" name="article_id" value="{{ $article->id }}">
+							<input type="hidden" name="numero" value="{{ $numero }}">
 							<p>
 								<button type="submit" class="btn btn-modern btn-lg">
 								  <small>Apoyar</small>

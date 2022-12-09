@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Gate;
 use Validator;
 use App\CommentArticle;
+use App\Notifications\CommentArticleNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Article;
+use App\User;
+
 class CommentArticleController extends Controller
 {
     public function store(Request $request)
@@ -16,8 +21,12 @@ class CommentArticleController extends Controller
         $comment->article_id   = $request->get('article_id');
         
         $comment->user_name     = auth()->user()->name;
-       
         auth()->user()->commentArticle()->save($comment);
+
+        $article=Article::findOrFail($request->get('article_id'));
+        $user = User::where('id', $article->user_id )->first();   
+        Notification::send($user,new CommentArticleNotification(auth()->user()->name,$request->get('numero'),$article));
+        
     }
 
     public function edit($id,$numero)

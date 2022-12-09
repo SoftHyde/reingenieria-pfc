@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use Gate;
 use Validator;
 use App\CommentProject;
+use App\Notifications\CommentProjectNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Project;
+use App\Moderator;
+use App\User;
+
 
 class CommentProjectController extends Controller
 {
@@ -20,6 +26,13 @@ class CommentProjectController extends Controller
         $comment->user_name     = auth()->user()->name;
        
         auth()->user()->CommentProject()->save($comment);
+
+        $project=Project::findOrFail($request->get('project_id'));
+        $moderators=Moderator::where('project_id', $request->get('project_id'))->get();
+        foreach ($moderators as $moderator){
+         $user = User::where('id', $moderator->user_id )->first();   
+         Notification::send($user,new CommentProjectNotification(auth()->user()->name,$project));
+        }
     }
 
     public function edit($id)

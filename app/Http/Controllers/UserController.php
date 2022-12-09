@@ -163,10 +163,11 @@ class UserController extends Controller
     }
 
     public function putban(Request $request, $id){
+        
         $validation = Validator::make($request->all(), [
             'ban_reason' => 'required'
         ]);
-
+        $time = $request->quantity;
         if ($validation->fails()) {
             $this->throwValidationException(
                 $request, $validation
@@ -176,7 +177,7 @@ class UserController extends Controller
         $user->ban_reason = $request->get('ban_reason');
         $user->save();
 
-        Mail::send('emails/banned', compact('user'), function($m) use ($user){
+        Mail::send('emails/banned', compact('user','time'), function($m) use ($user){
             $m->to($user->email, $user->name)->subject('Has sido suspendido');
         });
 

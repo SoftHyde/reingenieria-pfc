@@ -20,11 +20,14 @@
 		@endif
 	@endfor
 </div>
-
-@if (Auth::check() and (Gate::allows('moderator', $project)))
-<div class="row text-center">
-	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
-</div>
+@if($project->countdown()>0)
+	@if (Auth::check() and (Gate::allows('moderator', $project)))
+	<div class="row text-center">
+		<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
+	</div>
+	@endif
+@else
+	<p class="text-muted" align="center">Ha terminado el tiempo de participacion</p>	
 @endif
 
 

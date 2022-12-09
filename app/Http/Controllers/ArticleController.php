@@ -6,6 +6,9 @@ use App\Article;
 use App\User;
 use Gate;
 use Validator;
+use App\Notifications\SupportArticleNotification;
+use Illuminate\Support\Facades\Notification;
+
 
 use Illuminate\Http\Request;
 
@@ -162,6 +165,8 @@ class ArticleController extends Controller
         }
 
         $user->supportArticle()->attach($article->id);
+        $owner = User::where('id', $article->user_id )->first();   
+        Notification::send($owner,new SupportArticleNotification(auth()->user()->name,$request->get('numero'),$article));
 
         return redirect()->back();
     }

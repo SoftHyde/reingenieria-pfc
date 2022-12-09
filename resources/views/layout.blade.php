@@ -91,6 +91,31 @@
             </div>
           @else
             <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+                  Notification <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  @forelse (Auth::user()->notifications as $notification)
+                  @if($notification->data['type']=="commentProject")
+                    <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado el proyecto {{$notification->data['project']}} </a>
+                    <br> 
+                  @else
+                  @if($notification->data['type']=="commentArticle")
+                  <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado en su articulo </a>
+                  <br>   
+                  @endif 
+                  @if($notification->data['type']=="supportArticle")
+                  <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} Ha apoyado su articulo </a>
+                  <br>   
+                  @endif   
+                  @endif
+                  @empty
+                  <a class="dropdown-item">No record found</a>     
+                  @endforelse
+                </div>
+                
+              </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false" style="position: relative; padding-left: 50px">
                   <img class="navbar-avatar" src="{{Auth::user()->avatar}}">

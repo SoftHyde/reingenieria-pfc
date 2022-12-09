@@ -72,7 +72,7 @@ class ProjectController extends Controller
         $project->user_id       = auth()->user()->id;
         $project->limit_date = $request->get('limit_date');
         $project->save();
-      
+
         
         foreach ($request->get('moderator_email') as $moderator){
             if ( ! User::where('email', $request->get('moderator_email') )->first() ) {

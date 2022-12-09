@@ -176,15 +176,19 @@
 	</div>
 </div>
 @else
-@if (Auth::check() and (Gate::allows('moderator', $project)))
-{{-- Agregar condicion para chekear en vez de el rol, el mail de usuarios asignados al proyecto como moderadores --}}
-<div class="row text-center">
-	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
-</div>
+@if($project->countdown()>0)
+	@if (Auth::check() and (Gate::allows('moderator', $project)))
+	{{-- Agregar condicion para chekear en vez de el rol, el mail de usuarios asignados al proyecto como moderadores --}}
+	<div class="row text-center">
+		<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
+	</div>
+	@else
+	<div class="row text-center">
+		<p>No hay articulos creados aun.</p>
+	</div>
+	@endif
 @else
-<div class="row text-center">
-	<p>No hay articulos creados aun.</p>
-</div>
+	<p class="text-muted" align="center">Ha terminado el tiempo de participacion</p>	
 @endif
 
 @endif

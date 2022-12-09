@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label>Tiempo (días)</label>
 					<br>
-					<input type="number" name="quantity" min="1" max="90">
+					<input type="number" name="quantity" min="1" max="90" required>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary" style="margin-right: 15px;">Enviar</button>
