@@ -52,38 +52,36 @@
 							  <ul class="dropdown-menu">
 								<li class="dropdown-header">Proyecto:</li>
 								<li>
-									  <a href="{{route('project.edit', $project->id)}}">
-										  <i class="fa fa-edit" aria-hidden="true"></i> Editar
-									  </a>
-								  </li>
-	
-								
-									<li role="separator" class="divider"></li>
-									<li>
-										<form role="form" method="POST" action="{{ route('project.delete')}}">
-											<input type="hidden" name="_token" value="{{ csrf_token() }}">
-											<input type="hidden" name="project_id" value="{{ $project->id }}">
-											<input type="hidden" name="_method" value="DELETE">
-											<button type="submit" class="btn btn-danger btn-block rect"
-											data-toggle="confirmation"
-											data-popout="true"
-											data-placement="bottom"
-											data-btn-ok-label="Si"
-											data-btn-cancel-label="No"
-											data-title="¿Estás seguro de que deseas eliminarla?"
-											>
-											  <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar Proyecto
-											</button>
-										</form>
-									</li>
-								
+									<a href="{{route('project.edit', $project->id)}}">
+										<i class="fa fa-edit" aria-hidden="true"></i> Editar
+									</a>
+								</li>
+								<li role="separator" class="divider">
+								</li>
+								<li>
+									<form role="form" method="POST" action="{{ route('project.delete')}}">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										<input type="hidden" name="project_id" value="{{ $project->id }}">
+										<input type="hidden" name="_method" value="DELETE">
+										<button type="submit" class="btn btn-danger btn-block rect"
+										data-toggle="confirmation"
+										data-popout="true"
+										data-placement="bottom"
+										data-btn-ok-label="Si"
+										data-btn-cancel-label="No"
+										data-title="¿Estás seguro de que deseas eliminarla?"
+										>
+											<i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar Proyecto
+										</button>
+									</form>
+								</li>
 							  </ul>
 							</div>
 						@endif
 					</div>
 				</div>
 				<br>	
-				
+
 				<ul class="nav nav-tabs">
 	  				<li class="active"><a href="#">Descripción</a></li>
 	  				@if(count($articles)>0)
@@ -167,7 +165,7 @@
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<h2 class="light">
-					Articulos <a href="#" class="scroll-top back-to-top btn btn-modern pull-right"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
+					Articulos
 				</h2>
 				<br />
 				@include('partials/articles_list')
@@ -179,7 +177,7 @@
 @if (Auth::check() and (Gate::allows('moderator', $project)))
 {{-- Agregar condicion para chekear en vez de el rol, el mail de usuarios asignados al proyecto como moderadores --}}
 <div class="row text-center">
-	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg">Crear Articulo</a>
+	<a href="{{ route('create-article-form', ['project_id' => $project->id]) }}" class="btn btn-modern btn-lg" style="margin-bottom: 30px">Crear Articulo</a>
 </div>
 @else
 <div class="row text-center">

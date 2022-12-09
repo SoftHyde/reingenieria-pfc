@@ -98,17 +98,6 @@
 				<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
 				Estadísticas
 			</h4>
-			<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				  Herramienta
-				  <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" option value="Man">
-				  <li><a onclick="mostrarAcciones()" >Acciones Participativas</a></li>
-				  <li><a onclick="mostrarProyectos() ">Co-Creacion de Normativas</a></li>
-				</ul>
-			  </div>
-			<br>
 			<div class="row">
 				<div class="col-md-6" id="GraficoAcciones">
 					Propuestas, comentarios y calificaciones publicadas por mes:
@@ -118,10 +107,6 @@
 					Proyectos, articulos y comentarios publicados por mes:
 					<div id="mythirdchart" style="height: 250px;"></div>
 				</div>
-				<div class="col-md-6">
-					Usuarios por distrito:
-					<div id="mysecondchart" style="height: 230px;"></div>
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6" align="center">
@@ -130,7 +115,7 @@
 							Meses:
 						</div>
 					   	<div class="col-md-3" align="left">
-					  		<select class="form-control" id="months_select">
+					  		<select class="form-control" id="months_select_action">
 						    	<option>2</option>
 						    	<option selected="selected">4</option>
 						    	<option>6</option>
@@ -139,6 +124,29 @@
 				   		</div>
 					</div>
 				</div>
+				<div class="col-md-6" align="center">
+					<div class="row">
+						<div class="col-md-3 col-md-offset-2" align="right">
+							Meses:
+						</div>
+					   	<div class="col-md-3" align="left">
+					  		<select class="form-control" id="months_select_project">
+						    	<option>2</option>
+						    	<option selected="selected">4</option>
+						    	<option>6</option>
+						    	<option>12</option>
+					  		</select>
+				   		</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					Usuarios por distrito:
+					<div id="mysecondchart" style="height: 230px;"></div>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<a href="/stats" class="list-group-item">Ver estadísticas de sesiones de usuario <span class="pull-right"> <i class="fa fa-area-chart" aria-hidden="true"></i> <i class="fa fa-bar-chart" aria-hidden="true"></i> <i class="fa fa-line-chart" aria-hidden="true"></i></span> </a>
 				</div>
@@ -157,9 +165,8 @@
 
 <script type="text/javascript">
 
-
 // Grafico de progresion mensual
-var months = Morris.Area({
+var months_actions = Morris.Area({
   element: 'myfirstchart',
   data: [
     { y: '2017-01', propuestas: 0, comentarios:0, obras: 0, calificaciones: 0 }
@@ -169,7 +176,7 @@ var months = Morris.Area({
   labels: ['Propuestas', 'Comentarios', 'Calificaciones'],
 });
 
-var months = Morris.Area({
+var months_projects = Morris.Area({
   element: 'mythirdchart',
   data: [
     { y: '2017-01', projects: 0, articles:0, commentsProjects: 0, commentsArticles: 0 }
@@ -180,16 +187,16 @@ var months = Morris.Area({
 });
 
 // Muestro datos de acuerdo la cantidad de meses
-$("#months_select")
+$("#months_select_project")
   .change(function () {
-    var n = $( "#months_select option:selected" ).text();
+    var n = $( "#months_select_project option:selected" ).text();
     $.ajax({
       type: "GET",
       dataType: 'json',
       url: "/info-mensual/" + n
     })
     .done(function( data ) {
-      months.setData(data);
+		months_projects.setData(data);
     })
     .fail(function() {
       alert( "error occured" );
@@ -197,6 +204,22 @@ $("#months_select")
   })
   .change();
 
+$("#months_select_action")
+  .change(function () {
+    var n = $( "#months_select_action option:selected" ).text();
+    $.ajax({
+      type: "GET",
+      dataType: 'json',
+      url: "/info-mensual/" + n
+    })
+    .done(function( data ) {
+		months_actions.setData(data);
+    })
+    .fail(function() {
+      alert( "error occured" );
+    });
+  })
+  .change();
 
 // Grafico de usuarios por distrito
 var districts = Morris.Donut({
@@ -215,17 +238,6 @@ $.ajax({
     .fail(function() {
       alert( "error occured" );
     });
-
-
-function mostrarAcciones(){
-	document.getElementById('GraficoAcciones').style.display = 'block';
-	document.getElementById('GraficoProyectos').style.display = 'none';
-}
-
-function mostrarProyectos(){
-	document.getElementById('GraficoAcciones').style.display = 'none';
-	document.getElementById('GraficoProyectos').style.display = 'block';
-}
 
 </script>
 @endsection

@@ -8,11 +8,12 @@
 				<img class="card-img-top img-fluid" align="center" src="/images/proposal.jpg" alt="Card image cap">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-11">
 							<span style="color: red; margin-top:5px">{{$projects[$j]->countdown()}} Dias restantes</span>
-							
 						</div>
-						<div class="col-md-6" align="right">
+					</div>
+					<div class="row" align="center" style="margin-top: 10px">
+						<div class="col-md-10">
 							@foreach ($projects[$j]->projectTag as $tag)
 								<span class="tag tag-default"> 
 									<a href="{{ route('projectTag', ['tag' => $tag->tag]) }}" style="text-decoration: none; color:white">{{$tag->tag->name}}</a>

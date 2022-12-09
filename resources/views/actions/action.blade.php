@@ -203,16 +203,15 @@
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<h2 class="light">
-					Propuestas <a href="#" class="scroll-top back-to-top btn btn-modern pull-right"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
+					Propuestas
 				</h2>
-				<br />
+				<br/>
 				@include('partials/proposals_list')
 			</div>
 		</div>
 	</div>
 </div>
 @endif
-
 
 @if(!is_null($action->poll) )
 	<div class="jumbotron jumbo-img no-margin-bottom page-section" id="votacion">
@@ -222,7 +221,7 @@
 					<h1 class="light" align="center" style="color: #f5f5f5;">
 						<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
 						VOTACIÓN
-						<a href="#" class="scroll-top back-to-top btn btn-modern modern-light pull-right"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
+						{{-- <a href="#" class="scroll-top back-to-top btn btn-modern modern-light pull-right"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a> --}}
 					</h1>
 					<br />
 					@include('partials/poll')
@@ -238,7 +237,7 @@
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
 					<h2 class="light">
-						Obras del municipio <a href="#" class="scroll-top back-to-top btn btn-modern pull-right"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
+						Obras del municipio
 					</h2>
 					<br />
 					@include('partials/works_list')
