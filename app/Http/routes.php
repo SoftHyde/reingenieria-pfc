@@ -2,6 +2,7 @@
 use App\Poll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckBan;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::get('iniciar-sesion', [
 	'as' => 'login'
 	]);
 
-Route::post('iniciar-sesion',['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
+Route::post('iniciar-sesion',['as' => 'login.post', 'uses' => 'Auth\LoginController@login'])->middleware(CheckBan::class);;
 
 Route::get('cerrar-sesion', [
 	'uses' => 'Auth\LoginController@logout',
