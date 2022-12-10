@@ -10,6 +10,7 @@ use App\Notifications\CommentArticleNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Article;
 use App\User;
+use App\Notifications\SupportCommentArticleNotification;
 
 class CommentArticleController extends Controller
 {
@@ -25,8 +26,9 @@ class CommentArticleController extends Controller
 
         $article=Article::findOrFail($request->get('article_id'));
         $user = User::where('id', $article->user_id )->first();   
+        if(auth()->user()->name != $user->name){
         Notification::send($user,new CommentArticleNotification(auth()->user()->name,$request->get('numero'),$article));
-        
+        }
     }
 
     public function edit($id,$numero)
@@ -78,7 +80,10 @@ class CommentArticleController extends Controller
         }
 
         $user->likeCommentArticle()->attach($comment->id);
-
+        $owner = User::findOrFail($comment->user_id);
+        if(auth()->user()->name != $owner->name){
+            Notification::send($owner,new SupportCommentArticleNotification(auth()->user()->name,$request->get('numero'),$comment->article_id));
+        }
         $data = [
             'comment_id'    => $comment->id,
             'n_likes'       => count($comment->likers)

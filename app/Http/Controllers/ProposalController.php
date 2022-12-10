@@ -13,6 +13,9 @@ use App\Comment;
 use Gate;
 use Validator;
 
+use App\Notifications\SupportProposalNotification;
+use Illuminate\Support\Facades\Notification;
+
 class ProposalController extends Controller
 {
 
@@ -150,6 +153,11 @@ class ProposalController extends Controller
         }
 
         $user->supportProposal()->attach($proposal->id);
+
+        $owner = User::where('id', $proposal->user_id )->first();
+        if(auth()->user()->name != $owner->name){   
+        Notification::send($owner,new SupportProposalNotification(auth()->user()->name,$proposal));
+        }
 
         return redirect(route('proposal', $proposal->id));
     }

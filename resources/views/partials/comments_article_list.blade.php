@@ -64,6 +64,7 @@
 						<form id="like_comment{{$comment->id}}" role="form" method="POST" onsubmit="likeCommentArticle({{$comment->id}})" action="{{ route('commentarticle.like')}}">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<input type="hidden" name="comment_id" value="{{ $comment->id }}">
+							<input type="hidden" name="numero" value="{{ $numero }}">
 							
 							<button type="submit" class="btn btn-default">
 							  <i class="fa fa-heart-o" aria-hidden="true"></i>
@@ -97,6 +98,7 @@
 						<form class="hidden" id="like_comment{{$comment->id}}" class="like_comment" role="form" method="POST" onsubmit="likeCommentArticle({{$comment->id}})" action="{{ route('commentarticle.like')}}">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<input type="hidden" name="comment_id" value="{{ $comment->id }}">
+							<input type="hidden" name="numero" value="{{ $numero }}">
 							
 							<button type="submit" class="btn btn-default">
 							  <i class="fa fa-heart-o" aria-hidden="true"></i>

@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 use App\Comment;
 use Gate;
 use Validator;
+use App\Notifications\CommentProposalNotification;
+use App\Notifications\CommentCommentProposalNotification;
+use App\Notifications\SupportCommentProposalNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Proposal;
+use App\User;
 
 class CommentController extends Controller
 {
@@ -44,14 +50,24 @@ class CommentController extends Controller
 
         $comment->comment       = $request->get('comment');
         $comment->proposal_id   = $request->get('proposal_id');
+        $proposal=Proposal::findOrFail($request->get('proposal_id'));
 
         if($request->has('father_id')){
             $comment->father_id     = $request->get('father_id');
+            $father = Comment::where('id', $comment->father_id )->first();
+            $owner = User::where('id', $father->user_id )->first();
+            if(auth()->user()->name != $owner->name){
+                Notification::send($owner,new CommentCommentProposalNotification(auth()->user()->name,$proposal));
+            }
         }
         
         $comment->user_name     = auth()->user()->name;
 
         auth()->user()->comments()->save($comment);
+        $owner = User::where('id', $proposal->user_id )->first();   
+        if(auth()->user()->name != $owner->name){
+            Notification::send($owner,new CommentProposalNotification(auth()->user()->name,$proposal));
+        }
     }
 
     /**
@@ -161,6 +177,12 @@ class CommentController extends Controller
             'comment_id'    => $comment->id,
             'n_likes'       => count($comment->likers)
         ];
+
+        $owner = User::findOrFail($comment->user_id);  
+        $proposal = Proposal::findOrFail($comment->proposal_id);  
+        if(auth()->user()->name !=$owner->name){
+        Notification::send($owner,new SupportCommentProposalNotification(auth()->user()->name,$proposal));
+        }
 
         return response()->json($data);
     }

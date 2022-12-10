@@ -166,8 +166,9 @@ class ArticleController extends Controller
 
         $user->supportArticle()->attach($article->id);
         $owner = User::where('id', $article->user_id )->first();   
+        if(auth()->user()->name != $owner->name){ 
         Notification::send($owner,new SupportArticleNotification(auth()->user()->name,$request->get('numero'),$article));
-
+        }
         return redirect()->back();
     }
 

@@ -12,6 +12,10 @@ use App\ProjectTag;
 use App\Moderator;
 use Illuminate\Support\Facades\DB;
 
+use App\Notifications\NewModeratorNotification;
+use Illuminate\Support\Facades\Notification;
+
+
 class ProjectController extends Controller
 {
     /**
@@ -89,6 +93,12 @@ class ProjectController extends Controller
             $newModerator -> user_id = $user->id;
             $newModerator->project_id = $project->id;
             $newModerator->save();
+        }
+        $moderators=Moderator::where('project_id',$project->id)->get();
+        
+        foreach ($moderators as $moderator){
+         $userM = User::where('id', $moderator->user_id )->first(); 
+         Notification::send($userM,new NewModeratorNotification($project));
         }
         foreach ($request->get('tag') as $tag){
             $ptag = Tag::where('name', $tag['tag'] )->first();

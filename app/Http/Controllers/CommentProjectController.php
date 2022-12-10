@@ -8,6 +8,7 @@ use Gate;
 use Validator;
 use App\CommentProject;
 use App\Notifications\CommentProjectNotification;
+use App\Notifications\SupportCommentProjectNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Project;
 use App\Moderator;
@@ -89,7 +90,11 @@ class CommentProjectController extends Controller
             'comment_id'    => $comment->id,
             'n_likes'       => count($comment->likers)
         ];
-
+        $owner = User::findOrFail($comment->user_id);  
+        $project = Project::findOrFail($comment->project_id);  
+        if(auth()->user()->name !=$owner->name){
+        Notification::send($owner,new SupportCommentProjectNotification(auth()->user()->name,$comment->project));
+        }
         return response()->json($data);
     }
 
