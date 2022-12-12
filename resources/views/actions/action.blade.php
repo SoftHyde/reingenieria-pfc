@@ -193,6 +193,13 @@
 			    <a href="" class="ssk ssk-tumblr"></a>
 			</div>
 			<br>
+			<strong>TAGS</strong>
+	  		<div>
+			    @foreach($action->actionTag as $tag)
+				<a href="{{ route('actionTag', ['tag' => $tag->tag]) }}">{{$tag->tag->name}}</a>
+				|
+				@endforeach
+			</div>
 		</div>
 	</div>
 </div>
