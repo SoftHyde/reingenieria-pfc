@@ -48,6 +48,11 @@
 				Comentarios realizados: <strong>{{count($user->comments)}}</strong>
 				<br>
 				Obras calificadas: <strong>{{count($user->ratings)}}</strong>
+				<br>
+				Proyectos comentados: <strong>{{count($user->commentProject)}}</strong>
+				<br>
+				Articulos comentados: <strong>{{count($user->commentArticle)}}</strong>
+				
 			</p>
 			@include('partials/success')
 			@include('partials/warning')
@@ -176,6 +181,120 @@
 				  	@endforeach
 				@endif
 
+				@if(count($user->commentProject) > 0)
+					<br>
+					<hr class="styled">
+				  	<h3>Proyectos comentados</h3>
+				  	<br>
+				  	@foreach($user->commentProject as $comment)
+				  		<div class="card">
+							<div class="card-block"> 
+								En <a href="{{ route('project', ['id' => $comment->project->id]) }}">{{ $comment->project->name }}</a>
+								@if(Gate::allows('edit_comment_project', $comment))
+									<div class="dropdown pull-right">
+									  <button class="btn btn-modern dropdown-toggle" type="button" data-toggle="dropdown">
+									  	<span class="caret"></span></button>
+									  </button>
+									  <ul class="dropdown-menu">
+									    <li>
+									    	<a href="">Editar comentario</a>
+									    </li>
+									    
+										    <li role="separator" class="divider"></li>
+										    <li>
+										    	<form role="form" method="POST" action="{{ route('commentproject.delete')}}">
+													<input type="hidden" name="_token" value="{{ csrf_token() }}">
+													<input type="hidden" name="comment_id" value="{{ $comment->id }}">
+													<input type="hidden" name="_method" value="DELETE">
+													<button type="submit" class="btn btn-danger btn-block rect"
+													data-toggle="confirmation"
+													data-popout="true"
+													data-placement="bottom"
+													data-btn-ok-label="Si"
+											        data-btn-cancel-label="No"
+											        data-title="¿Estás seguro de que deseas eliminarlo?"
+													>
+													  Eliminar comentario
+													</button>
+												</form>
+										    </li>
+										  
+									  </ul>
+									</div>
+								@endif
+								<br>
+								<small>{{$comment->updated_at}}</small>
+								<br>
+								<div class="proposal-comment">{{$comment->comment}}</div>
+								<hr>
+								<div align="right">
+									<i class="fa fa-heart" aria-hidden="true" style="color: #ff5555;"></i>
+									&nbsp;	
+									<span class="proposal-text">{{count($comment->likers)}}</span>
+								</div>
+							</div>
+						</div>
+						<br>
+				  	@endforeach
+				@endif
+
+				@if(count($user->commentArticle) > 0)
+					<br>
+					<hr class="styled">
+				  	<h3>Articulos comentados</h3>
+				  	<br>
+				  	@foreach($user->commentArticle as $comment)
+				  		<div class="card">
+							<div class="card-block"> 
+								En <a href="{{ route('project', ['id' => $comment->article->project->id]) }}">{{ $comment->article->project->name }}</a>
+								@if(Gate::allows('edit_comment_article', $comment))
+									<div class="dropdown pull-right">
+									  <button class="btn btn-modern dropdown-toggle" type="button" data-toggle="dropdown">
+									  	<span class="caret"></span></button>
+									  </button>
+									  <ul class="dropdown-menu">
+									    <li>
+									    	<a href="">Editar comentario</a>
+									    </li>
+									    
+										    <li role="separator" class="divider"></li>
+										    <li>
+										    	<form role="form" method="POST" action="{{ route('commentarticle.delete')}}">
+													<input type="hidden" name="_token" value="{{ csrf_token() }}">
+													<input type="hidden" name="comment_id" value="{{ $comment->id }}">
+													<input type="hidden" name="_method" value="DELETE">
+													<button type="submit" class="btn btn-danger btn-block rect"
+													data-toggle="confirmation"
+													data-popout="true"
+													data-placement="bottom"
+													data-btn-ok-label="Si"
+											        data-btn-cancel-label="No"
+											        data-title="¿Estás seguro de que deseas eliminarlo?"
+													>
+													  Eliminar comentario
+													</button>
+												</form>
+										    </li>
+										  
+									  </ul>
+									</div>
+								@endif
+								<br>
+								<small>{{$comment->updated_at}}</small>
+								<br>
+								<div class="proposal-comment">{{$comment->comment}}</div>
+								<hr>
+								<div align="right">
+									<i class="fa fa-heart" aria-hidden="true" style="color: #ff5555;"></i>
+									&nbsp;	
+									<span class="proposal-text">{{count($comment->likers)}}</span>
+								</div>
+							</div>
+						</div>
+						<br>
+				  	@endforeach
+				@endif
+
 				@if(count($user->ratings) > 0)
 					<br>
 					<hr class="styled">
@@ -203,6 +322,8 @@
 						<br>
 					@endforeach
 				@endif
+
+				
 
 			</div>
 		</div>
