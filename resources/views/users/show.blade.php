@@ -39,19 +39,37 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4" align="center">
-			<img class="img-fluid img-circle" src="{{$user->avatar}}" alt="Foto de perfil">
-			<h2>{{$user->name}}</h2>
-			<p>
-				Propuestas publicadas: <strong>{{count($user->proposals)}}</strong>
-				<br>
-				Comentarios realizados: <strong>{{count($user->comments)}}</strong>
-				<br>
-				Obras calificadas: <strong>{{count($user->ratings)}}</strong>
-			</p>
-			@include('partials/success')
-			@include('partials/warning')
-			@include('partials/errors')
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4" align="center">
+				<img class="img-fluid img-circle" src="{{$user->avatar}}" alt="Foto de perfil">
+				<h2>{{$user->name}}</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6" align="right">
+				<p>
+					Propuestas publicadas: <strong>{{count($user->proposals)}}</strong>
+					<br>
+					Comentarios realizados: <strong>{{count($user->comments)}}</strong>
+					<br>
+					Obras calificadas: <strong>{{count($user->ratings)}}</strong>
+				</p>
+				@include('partials/success')
+				@include('partials/warning')
+				@include('partials/errors')
+			</div>
+			<div class="col-md-6" align="left">
+				<p>
+					Propuestas publicadas: <strong>{{count($user->proposals)}}</strong>
+					<br>
+					Comentarios realizados: <strong>{{count($user->comments)}}</strong>
+					<br>
+					Obras calificadas: <strong>{{count($user->ratings)}}</strong>
+				</p>
+				@include('partials/success')
+				@include('partials/warning')
+				@include('partials/errors')
+			</div>
 		</div>
 		@if(Gate::allows('config_profile', $user->id))
 			<div class="col-md-1" align="center">
