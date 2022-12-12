@@ -95,7 +95,7 @@
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
                   Notificaciones <span class="caret"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="width: 25vw">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="width: 20vw; height:auto; max-height: 300px; overflow-x:hidden">
                   <div class="col-md-12">
                     <hr style="margin-top: 5px; margin-bottom:5px">
                     @forelse (Auth::user()->notifications as $notification)

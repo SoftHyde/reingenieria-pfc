@@ -42,18 +42,24 @@
 		<div class="col-md-4 col-md-offset-4" align="center">
 			<img class="img-fluid img-circle" src="{{$user->avatar}}" alt="Foto de perfil">
 			<h2>{{$user->name}}</h2>
-			<p>
-				Propuestas publicadas: <strong>{{count($user->proposals)}}</strong>
-				<br>
-				Comentarios realizados: <strong>{{count($user->comments)}}</strong>
-				<br>
-				Obras calificadas: <strong>{{count($user->ratings)}}</strong>
-				<br>
-				Proyectos comentados: <strong>{{count($user->commentProject)}}</strong>
-				<br>
-				Articulos comentados: <strong>{{count($user->commentArticle)}}</strong>
-				
-			</p>
+			<div class="row">
+				<div class="col-md-6" align="right">
+					<p>
+						Propuestas publicadas: <strong>{{count($user->proposals)}}</strong>
+						<br>
+						Comentarios realizados: <strong>{{count($user->comments)}}</strong>
+						<br>
+						Obras calificadas: <strong>{{count($user->ratings)}}</strong>
+					</p>
+				</div>
+				<div class="col-md-6" align="left">
+					<p>
+						Proyectos comentados: <strong>{{count($user->commentProject)}}</strong>
+						<br>
+						Articulos comentados: <strong>{{count($user->commentArticle)}}</strong>
+					</p>
+				</div>
+			</div>
 			@include('partials/success')
 			@include('partials/warning')
 			@include('partials/errors')
