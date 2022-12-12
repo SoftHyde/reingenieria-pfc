@@ -20,4 +20,7 @@ class CommentProject extends Model
     public function likers(){
         return $this->belongsToMany(User::class, 'user_like_comment_project')->withTimestamps();
     }
+    public function report(){
+        return $this->hasMany(CommentProjectReport::class);
+    }
 }

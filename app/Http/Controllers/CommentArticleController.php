@@ -10,7 +10,9 @@ use App\Notifications\CommentArticleNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Article;
 use App\User;
+use App\CommentArticleReport;
 use App\Notifications\SupportCommentArticleNotification;
+use App\Notifications\CommentArticleReportNotification;
 
 class CommentArticleController extends Controller
 {
@@ -35,7 +37,7 @@ class CommentArticleController extends Controller
     {
         $comment = CommentArticle::findOrFail($id);
 
-        if (Gate::denies('edit_comment', $comment)) {
+        if (Gate::denies('edit_comment_article', $comment)) {
             abort(403, 'No autorizado');
         }
 
@@ -56,7 +58,7 @@ class CommentArticleController extends Controller
 
         $comment = CommentArticle::findOrFail($id);
 
-        if (Gate::denies('edit_comment', $comment)) {
+        if (Gate::denies('edit_comment_article', $comment)) {
             abort(403, 'No autorizado');
         }
 
@@ -123,11 +125,31 @@ class CommentArticleController extends Controller
             ->with('alert', "El comentario ha sido eliminado con éxito.");
     }
     
-    public function report($id)
+    public function report($id,$numero)
     {
         $comment = CommentArticle::findOrFail($id);
-
         $comment->reported = $comment->reported + 1;
+
+        if($comment->reported == 1){
+            $article=Article::findOrFail($comment->article_id);
+            $admin=User::findOrFail($article->project->user_id);
+            Notification::send($admin,new CommentArticleReportNotification($comment->user->name,$comment,$numero));
+        }
+
+
+        $reported=$comment->report()->pluck('user_id')->toArray();
+        $user = auth()->user();
+
+        if ( in_array($user->id, $reported) ) {
+            return redirect()->back()
+                ->with('warning', 'Ya reportaste a este comentario');
+        }
+        
+
+        $report= new CommentArticleReport;
+        $report->comment_article_id = $comment->id;
+        $report->user_id = $user->id;
+        $report->save();
 
         $comment->save();
 

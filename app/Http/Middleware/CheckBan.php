@@ -17,10 +17,16 @@ class CheckBan
     public function handle(Request $request, Closure $next)
     {
         $user = User::where('email', $request->get('email') )->first();
-        if ($user->ban_reason) {
-            return redirect()->back()
-                ->with('alert', 'Tu cuenta esta suspendida');
+        if($user){
+            if ($user->ban_reason) {
+                return redirect()->back()
+                    ->with('alert', 'Tu cuenta esta suspendida');
+            }
+            return $next($request);
         }
-        return $next($request);
+        else{
+            return redirect()->back()
+            ->with('warning', 'Ya reportaste a este comentario');
+        }
     }
 }

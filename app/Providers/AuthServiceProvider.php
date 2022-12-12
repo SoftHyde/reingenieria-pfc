@@ -81,7 +81,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('edit_comment_article',function($user, $comment){
             if (auth()->check()){
-                return ($user->id == $comment->user_id) or ($user->id == $comment->article->project->admin_id) or ($user->role == 'admin');
+                return ($user->id == $comment->user_id) or ($user->id == $comment->article->project->user_id) or ($user->role == 'admin');
             }
             else {
                 return false;
@@ -89,7 +89,7 @@ class AuthServiceProvider extends ServiceProvider
         });
         Gate::define('edit_comment_project',function($user, $comment){
             if (auth()->check()){
-                return ($user->id == $comment->user_id) or ($user->id == $comment->project->admin_id) or ($user->role == 'admin');
+                return ($user->id == $comment->user_id) or ($user->id == $comment->project->user_id) or ($user->role == 'admin');
             }
             else {
                 return false;

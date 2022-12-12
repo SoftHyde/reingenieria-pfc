@@ -123,7 +123,17 @@ class User extends Authenticatable
         
         return $this->belongsToMany(CommentProject::class, 'user_like_comment_project')->withTimestamps();
     }
-    
+
+    public function reportCommentProject(){
+        return $this->hasMany(CommentProjectReport::class);
+    }
+
+    public function reportCommentArticle(){
+        return $this->hasMany(CommentArticleReport::class);
+    }
+    public function reportComment(){
+        return $this->hasMany(CommentReport::class);
+    }
 
     //return array of works ids
     public function ratedWorks(){

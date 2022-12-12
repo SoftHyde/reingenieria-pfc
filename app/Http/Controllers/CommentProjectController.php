@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Notification;
 use App\Project;
 use App\Moderator;
 use App\User;
-
+use App\CommentProjectReport;
+use App\Notifications\CommentProjectReportNotification;
 
 class CommentProjectController extends Controller
 {
@@ -40,7 +41,7 @@ class CommentProjectController extends Controller
     {
         $comment = CommentProject::findOrFail($id);
 
-        if (Gate::denies('edit_comment', $comment)) {
+        if (Gate::denies('edit_comment_project', $comment)) {
             abort(403, 'No autorizado');
         }
 
@@ -61,7 +62,7 @@ class CommentProjectController extends Controller
 
         $comment = CommentProject::findOrFail($id);
 
-        if (Gate::denies('edit_comment', $comment)) {
+        if (Gate::denies('edit_comment_project', $comment)) {
             abort(403, 'No autorizado');
         }
 
@@ -134,6 +135,26 @@ class CommentProjectController extends Controller
         $comment = CommentProject::findOrFail($id);
 
         $comment->reported = $comment->reported + 1;
+
+        if($comment->reported == 1){
+            $project=Project::findOrFail($comment->project_id);
+            $admin=User::findOrFail($project->user_id);
+            Notification::send($admin,new CommentProjectReportNotification($comment->user->name,$comment));
+        }
+
+
+        $reported=$comment->report()->pluck('user_id')->toArray();
+        $user = auth()->user();
+
+        if ( in_array($user->id, $reported) ) {
+            return redirect()->back()
+                ->with('warning', 'Ya reportaste a este comentario');
+        }
+
+        $report= new CommentProjectReport;
+        $report->comment_project_id = $comment->id;
+        $report->user_id = $user->id;
+        $report->save();
 
         $comment->save();
 

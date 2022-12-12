@@ -136,6 +136,18 @@
                         <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su comentario</a>
                         <hr style="margin-top: 5px; margin-bottom:5px">
                         @break
+                        @case("reportCommentProposal")
+                        <a href="{{ route('comment.edit', ['id' => $notification->data['comment_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha recibido demasiados reportes en su comentario</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("reportCommentProject")
+                        <a href="{{ route('commentproject.edit', ['id' => $notification->data['comment_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha recibido demasiados reportes en su comentario</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("reportCommentArticle")
+                        <a href="{{ route('commentarticle.edit', ['id' => $notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha recibido demasiados reportes en su comentario</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
                         @case("commentCommentProposal")
                         <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha respondido a su comentario en una propuesta</a>
                         <hr style="margin-top: 5px; margin-bottom:5px">

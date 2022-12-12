@@ -15,6 +15,9 @@ use App\Notifications\SupportCommentProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Proposal;
 use App\User;
+use App\Action;
+use App\CommentReport;
+use App\Notifications\CommentReportNotification;
 
 class CommentController extends Controller
 {
@@ -103,6 +106,25 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         $comment->reported = $comment->reported + 1;
+
+        if($comment->reported == 5){
+            $action=Action::findOrFail($comment->proposal->action_id);
+            $admin=User::findOrFail($action->admin_id);
+            Notification::send($admin,new CommentReportNotification($comment->user->name,$comment));
+        }
+
+        $reported=$comment->report()->pluck('user_id')->toArray();
+        $user = auth()->user();
+
+        if ( in_array($user->id, $reported) ) {
+            return redirect()->back()
+                ->with('warning', 'Ya reportaste a este comentario');
+        }
+
+        $report= new CommentReport;
+        $report->comment_id = $comment->id;
+        $report->user_id = $user->id;
+        $report->save();
 
         $comment->save();
 

@@ -20,4 +20,7 @@ class CommentArticle extends Model
     public function likers(){
         return $this->belongsToMany(User::class, 'user_like_comment_article')->withTimestamps();
     }
+    public function report(){
+        return $this->hasMany(CommentArticleReport::class);
+    }
 }

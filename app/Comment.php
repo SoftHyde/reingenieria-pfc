@@ -37,5 +37,8 @@ class Comment extends Model
     public function responses(){
         return $this->hasMany(Comment::class, 'father_id');
     }
+    public function report(){
+        return $this->hasMany(CommentReport::class);
+    }
 
 }
