@@ -91,56 +91,59 @@
             </div>
           @else
             <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item dropdown">
+              <li class="dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
-                  Notification <span class="caret"></span>
+                  Notificaciones <span class="caret"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                  @forelse (Auth::user()->notifications as $notification)
-                    @switch($notification->data['type'])
-                      @case("commentProject")
-                        <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado el proyecto {{$notification->data['project']}} </a>
-                        <br>
-                      @break
-                      @case("commentArticle") 
-                        <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado en su articulo </a>
-                        <br>   
-                      @break
-                      @case("supportArticle")  
-                        <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} Ha apoyado su articulo </a>
-                        <br>   
-                      @break
-                      @case("supportCommentArticle")
-                      <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} Ha apoyado su comentario </a>
-                      <br>   
-                      @break
-                      @case("supportCommentProject")
-                      <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su comentario en el proyecto {{$notification->data['project']}} </a>
-                      <br>
-                      @break
-                      @case("newModeratorProject")
-                      <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">Has sido seleccionado como moderador del proyecto {{$notification->data['project']}} </a>
-                      <br>
-                      @break
-                      @case("supportProposal")
-                      <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su propuesta </a>
-                      <br>
-                      @break
-                      @case("commentProposal")
-                      <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado su propuesta</a>
-                      <br>
-                      @break
-                      @case("supportCommentProposal")
-                      <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su comentario</a>
-                      <br>
-                      @break
-                      @case("commentCommentProposal")
-                      <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha respondido a su comentario en una propuesta</a>
-                      <br>
-                    @endswitch
-                  @empty
-                    <a class="dropdown-item">No record found</a>     
-                  @endforelse
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="width: 25vw">
+                  <div class="col-md-12">
+                    <hr style="margin-top: 5px; margin-bottom:5px">
+                    @forelse (Auth::user()->notifications as $notification)
+                      @switch($notification->data['type'])
+                        @case("commentProject")
+                          <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado el proyecto {{$notification->data['project']}} </a>
+                          <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("commentArticle") 
+                          <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado en su articulo </a>
+                          <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("supportArticle")  
+                          <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} Ha apoyado su articulo </a>
+                          <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("supportCommentArticle")
+                        <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} Ha apoyado su comentario </a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("supportCommentProject")
+                        <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su comentario en el proyecto {{$notification->data['project']}} </a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("newModeratorProject")
+                        <a href="{{ route('project', ['id' => $notification->data['project_id']]) }}" class="dropdown-item">Has sido seleccionado como moderador del proyecto {{$notification->data['project']}} </a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("supportProposal")
+                        <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su propuesta </a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("commentProposal")
+                        <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha comentado su propuesta</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("supportCommentProposal")
+                        <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha apoyado su comentario</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("commentCommentProposal")
+                        <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha respondido a su comentario en una propuesta</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                      @endswitch
+                    @empty
+                      <a class="dropdown-item">No hay notificaciones para mostrar</a>     
+                    @endforelse
+                  </div>
                 </div>
                 
               </li>
