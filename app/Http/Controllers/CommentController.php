@@ -18,6 +18,7 @@ use App\User;
 use App\Action;
 use App\CommentReport;
 use App\Notifications\CommentReportNotification;
+use App\Notifications\DeleteCommentProposalNotification;
 
 class CommentController extends Controller
 {
@@ -107,7 +108,7 @@ class CommentController extends Controller
 
         $comment->reported = $comment->reported + 1;
 
-        if($comment->reported == 5){
+        if($comment->reported == 2){
             $action=Action::findOrFail($comment->proposal->action_id);
             $admin=User::findOrFail($action->admin_id);
             Notification::send($admin,new CommentReportNotification($comment->user->name,$comment));
@@ -175,10 +176,14 @@ class CommentController extends Controller
 
         $comment   = Comment::findOrFail($request->get('comment_id'));
         $proposal_id  = $comment->proposal_id;
+        $user = auth()->user();
         $comment->delete();
-
-        return redirect()->back()
-            ->with('alert', "El comentario ha sido eliminado con éxito.");
+        if($user->name != $comment->user_name){
+            $owner=User::findOrFail($comment->user_id);
+            Notification::send($owner,new DeleteCommentProposalNotification($proposal_id));
+        }
+        return redirect()->route('proposal',$proposal_id)
+        ->with('alert', 'El comentario ha sido eliminado con éxito');
     }
 
     public function like(Request $request) {

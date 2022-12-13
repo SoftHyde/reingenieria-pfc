@@ -13,6 +13,7 @@ use App\User;
 use App\CommentArticleReport;
 use App\Notifications\SupportCommentArticleNotification;
 use App\Notifications\CommentArticleReportNotification;
+use App\Notifications\DeleteCommentArticleNotification;
 
 class CommentArticleController extends Controller
 {
@@ -118,11 +119,22 @@ class CommentArticleController extends Controller
     public function destroy(Request $request){
 
         $comment   = CommentArticle::findOrFail($request->get('comment_id'));
-        $article_id  = $comment->article_id;
+        $article =Article::findOrFail($comment->article_id);
+        $user = auth()->user();
+        $i=1;
+        foreach($comment->article->project->article as $article){
+			if($article->id == $comment->article->id){
+                break;
+            }
+            $i++;
+        }
         $comment->delete();
-
-        return redirect()->back()
-            ->with('alert', "El comentario ha sido eliminado con éxito.");
+        if($user->name != $comment->user_name){
+            $owner=User::findOrFail($comment->user_id);
+            Notification::send($owner,new DeleteCommentArticleNotification($article,$i));
+        }
+        return redirect()->route('article',[$comment->article->id,$i])
+        ->with('alert', 'El comentario ha sido editado con éxito');
     }
     
     public function report($id,$numero)

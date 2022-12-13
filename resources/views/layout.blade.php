@@ -148,6 +148,18 @@
                         <a href="{{ route('commentarticle.edit', ['id' => $notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha recibido demasiados reportes en su comentario</a>
                         <hr style="margin-top: 5px; margin-bottom:5px">
                         @break
+                        @case("deleteCommentArticle")
+                        <a href="{{ route('article', [$notification->data['article_id'],$notification->data['numero']]) }}" class="dropdown-item">Su comentario en un articulo ha sido eliminado por un administrador</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("deleteCommentProject")
+                        <a href="{{ route('project', [$notification->data['project_id']]) }}" class="dropdown-item">Su comentario en un proyecto ha sido eliminado por un administrador</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
+                        @case("deleteCommentProposal")
+                        <a href="{{ route('proposal', [$notification->data['proposal_id']]) }}" class="dropdown-item">Su comentario en una propuesta ha sido eliminado por un administrador</a>
+                        <hr style="margin-top: 5px; margin-bottom:5px">
+                        @break
                         @case("commentCommentProposal")
                         <a href="{{ route('proposal', ['id' => $notification->data['proposal_id']]) }}" class="dropdown-item">El usuario {{$notification->data['name']}} ha respondido a su comentario en una propuesta</a>
                         <hr style="margin-top: 5px; margin-bottom:5px">

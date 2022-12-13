@@ -1,4 +1,5 @@
 @foreach($comments as $comment)
+@if($comment->reported <5)
 	<div class="card">
 		<div class="card-block"> 
 			<div class="row">
@@ -123,5 +124,6 @@
 		</div>
 	</div>
 	<br>
+@endif
 @endforeach
 <hr>

@@ -1,4 +1,5 @@
 @foreach($comments as $comment)
+@if($comment->reported <5)
 	@if($comment->father_id == null)
 	<div class="card">
 		<div class="card-block"> 
@@ -143,5 +144,6 @@
 	</div>
 	<br>
 	@endif
+@endif
 @endforeach
 <hr>

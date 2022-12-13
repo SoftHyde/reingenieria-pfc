@@ -15,6 +15,7 @@ use App\Moderator;
 use App\User;
 use App\CommentProjectReport;
 use App\Notifications\CommentProjectReportNotification;
+use App\Notifications\DeleteCommentProjectNotification;
 
 class CommentProjectController extends Controller
 {
@@ -124,10 +125,14 @@ class CommentProjectController extends Controller
 
         $comment   = CommentProject::findOrFail($request->get('comment_id'));
         $project_id  = $comment->project_id;
+        $user = auth()->user();
         $comment->delete();
-
-        return redirect()->back()
-            ->with('alert', "El comentario ha sido eliminado con éxito.");
+        if($user->name != $comment->user_name){
+            $owner=User::findOrFail($comment->user_id);
+            Notification::send($owner,new DeleteCommentProjectNotification($project_id));
+        }
+        return redirect()->route('project',$project_id)
+        ->with('alert', 'El comentario ha sido eliminado con éxito');
     }
     
     public function report($id)

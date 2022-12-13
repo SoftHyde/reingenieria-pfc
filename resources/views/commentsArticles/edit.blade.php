@@ -32,6 +32,20 @@
 						<button type="submit" class="btn btn-primary" style="margin-right: 15px;">Enviar</button>
 					</div>
 				</form>
+				<form role="form" method="POST" action="{{ route('commentarticle.delete')}}">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<input type="hidden" name="comment_id" value="{{ $comment->id }}">
+					<input type="hidden" name="_method" value="DELETE">
+					<button type="submit" class="btn btn-danger btn-block rect"
+					data-toggle="confirmation"
+					data-popout="true"
+					data-placement="bottom"
+					data-btn-ok-label="Si"
+					data-btn-cancel-label="No"
+					data-title="¿Estás seguro de que deseas eliminarlo?"
+					><i class="fa fa-trash" aria-hidden="true"></i> Eliminar comentario
+					</button>
+				</form>
 			</div>
 		</div>
 	</div>
