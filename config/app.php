@@ -168,6 +168,7 @@ return [
         Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         //PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
+        Spatie\Analytics\AnalyticsServiceProvider::class,
 
     ],
 
@@ -216,6 +217,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
         //'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,

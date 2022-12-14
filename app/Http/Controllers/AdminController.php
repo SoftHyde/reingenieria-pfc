@@ -19,6 +19,8 @@ use App\Project;
 use App\Article;
 use App\CommentArticle;
 use App\CommentProject;
+use Analytics; 
+use Spatie\Analytics\Period;
 
 class AdminController extends Controller
 {
@@ -40,7 +42,15 @@ class AdminController extends Controller
         ];
         return view('admin.settings', compact('data', 'banned_users', 'reported_comments'));
     }
-
+    public function getStats(){
+        $locations = Analytics::fetchLocations(Period::days(0));
+        $visitors_pages = Analytics::fetchTotalVisitorsAndPageViews(Period::days(0));
+        $sessionDuration = Analytics::fetchUserDuration(Period::days(0));
+        dd($sessionDuration);
+      
+        return view('admin.stats', compact('locations', 'visitors_pages', 'sessionDuration'));
+    }
+   
     public function info_months($months)
     {
         $data = [];    

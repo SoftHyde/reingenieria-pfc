@@ -3,6 +3,7 @@ use App\Poll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckBan;
+use Spatie\Analytics\Period;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,7 @@ use App\Http\Middleware\CheckBan;
 // Usuarios no autenticados
 
 //Inicio
-Route::get('/hola', function () {
-    return 'Hello World';
-});
+
 
 Route::get('/', [
 	'uses' => 'HomeController@index',
@@ -359,6 +358,12 @@ Route::group(['middleware' => 'auth'], function () {
 	// Administador de la plataforma
 	Route::group(['middleware' => 'role:admin'], function () {
 
+		Route::get('/stats', [
+			'uses' 	=> 'AdminController@getStats',
+			'as' 	=> 'settings'
+			]);
+		
+		
 		// Panel de administrador
 		Route::get('administracion', [
 			'uses' 	=> 'AdminController@getSettings',
