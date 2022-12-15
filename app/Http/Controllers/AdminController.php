@@ -43,12 +43,26 @@ class AdminController extends Controller
         return view('admin.settings', compact('data', 'banned_users', 'reported_comments'));
     }
     public function getStats(){
-        $locations = Analytics::fetchLocations(Period::days(0));
-        $visitors_pages = Analytics::fetchTotalVisitorsAndPageViews(Period::days(0));
-        $sessionDuration = Analytics::fetchUserDuration(Period::days(0));
-        dd($sessionDuration);
+        $startTimeStamp = strtotime("2022-12-13");//Desde esta fecha se contaran las estadisticas hasta el dia de hoy
+        $dt = Carbon::now();
+
+        $endTimeStamp=strtotime($dt->toDateString());  
+    
+        $timeDiff = abs($endTimeStamp - $startTimeStamp);
+        $numberDays = $timeDiff/86400;  // 86400 seconds in one day
+
+        // and you might want to convert to integer
+        $numberDays = intval($numberDays);
+
+
+        $totalUsers = Analytics::fetchTotalUsers(Period::days($numberDays));
+        // $users = Analytics::fetchUsers(Period::days($numberDays));
+        // $usersPerDay = Analytics::fetchUserperDay(Period::days($numberDays));
+    
       
-        return view('admin.stats', compact('locations', 'visitors_pages', 'sessionDuration'));
+
+      
+        return view('admin.stats', compact('totalUsers'));
     }
    
     public function info_months($months)
@@ -70,6 +84,41 @@ class AdminController extends Controller
         }
 
         return json_encode($data);
+    }
+    public function info_users($months)
+    {
+
+        $startTimeStamp = strtotime("2022-1-1");//Desde esta fecha se contaran las estadisticas hasta el dia de hoy
+        $dt = Carbon::now();
+
+        $endTimeStamp=strtotime($dt->toDateString());  
+    
+        $timeDiff = abs($endTimeStamp - $startTimeStamp);
+        $numberDays = $timeDiff/86400;  // 86400 seconds in one day
+
+        // and you might want to convert to integer
+        $numberDays = intval($numberDays);
+        $data = [];    
+        $usersPerDay = Analytics::fetchUserperDay(Period::days($numberDays));
+        foreach ($usersPerDay as $userPerDay) {
+            if(intval(substr($userPerDay['date'], 5, 2))==$months){
+            array_push($data, ["y"              => $userPerDay['date'],
+                               "users"     => $userPerDay['users'],
+                              ]);
+                            }
+                               
+        }
+        
+        return json_encode($data);
+    }
+
+    public function index_users()
+    {
+        $data = [];  
+        $users = Analytics::fetchUsers(Period::days(1));
+        return json_encode(array( ["label"=> $users[0]['users'], "value" => $users[0]['newUsers']],
+                                  ["label"=> $users[1]['users'], "value" => $users[1]['newUsers']]));
+        
     }
 
 }

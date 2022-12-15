@@ -375,7 +375,15 @@ Route::group(['middleware' => 'auth'], function () {
 			'uses'	=> 'AdminController@info_months',
 			'as'	=> 'admin.info_months'
 			]);
-
+		Route::get('info-usuarios/{meses}', [
+			'uses'	=> 'AdminController@info_users',
+			'as'	=> 'admin.info_users'
+			]);
+		Route::get('info-tipos-usuarios', [
+			'uses'	=> 'AdminController@index_users',
+			'as'	=> 'admin.info_users_type'
+			]);
+			
 		// Crear accion participativa
 		Route::get('administracion/crear-accion-participativa', [
 			'uses' 	=> 'ActionController@create',
