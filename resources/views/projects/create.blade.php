@@ -131,8 +131,9 @@ $(document).ready(function load1() {
     $("#dynamic-ar").click(function () {
         ++i;
         $("#dynamicAddRemove").append('<tr><td><input id="tags" type="text" name="tag[' + i +
-            '][tag]" placeholder="Enter tag" class="form-control" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            '][tag]" placeholder="Enter tag" class="form-control" value="' + document.getElementsByName("tag[0][tag]")[0].value + '" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
+		document.getElementsByName("tag[0][tag]")[0].value = "";
     });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
@@ -144,8 +145,9 @@ $(document).ready(function load1() {
     $("#dynamic-ar2").click(function () {
         ++i;
         $("#dynamicAddRemove2").append('<tr><td><input id="admin_email" type="text" name="moderator_email[' + i +
-            '][moderator_email]" placeholder="Agregar Email" class="form-control" required/></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            '][moderator_email]" placeholder="Agregar Email" class="form-control" value="' + document.getElementsByName("moderator_email[0][moderator_email]")[0].value + '" required/></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
+		document.getElementsByName("moderator_email[0][moderator_email]")[0].value="";
     });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();

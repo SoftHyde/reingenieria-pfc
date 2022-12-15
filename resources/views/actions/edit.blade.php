@@ -45,6 +45,30 @@
 					<input id="admin_email" type="email" name="admin_email" value="{{ $action->admin->email }}" class="form-control" placeholder="Empieza a escribir para filtrar resultados..." required>
 				</div>
 				<br>
+
+				<table class="table table-bordered" id="dynamicAddRemove">
+                    <tr>
+                        <th>Tag</th>
+                        <th>Opcion</th>
+                    </tr>
+                    @foreach ($action->actionTag as $atag)
+                        <tr>
+                            <td><input id="tags" type="text" name="tag[{{$loop->index}}][tag]" placeholder="Enter tag" class="form-control" value="{{ $atag->tag->name }}" required/>
+                            </td>
+                            @if($loop->first)
+                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Agregar Tag</button></td>
+                            @else
+                            <td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td>
+                            @endif
+                        </tr>
+                        
+                    @endforeach
+                </table>
+
+
+
+
+				<br>
 				<label class="control-label">Funcionalidades</label>
 				<div class="form-group alert alert-success">
 				    <div id="create-proposals">
@@ -150,5 +174,38 @@ $(document).ready(function () {
 	    $('#proposal-options').removeClass('hidden');
 	  });
 });
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+	var options = {
+	  	url: "/info-tags",
+	    getValue: "name",
+	    list: {
+	        match: {
+	            enabled: true
+	        }
+	    },
+	};
+	$("#tags").easyAutocomplete(options);
+});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var table = document.getElementById("dynamicAddRemove");
+    var i = table.rows.length-2;
+    console.log(i);
+    $("#dynamic-ar").click(function () {
+        ++i;
+        $("#dynamicAddRemove").append('<tr><td><input  id="tags" type="text" name="tag[' + i +
+            '][tag]" placeholder="Enter tag" class="form-control" value="' + document.getElementsByName("tag[0][tag]")[0].value + '" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            );
+		document.getElementsByName("tag[0][tag]")[0].value = "";
+    });
+    $(document).on('click', '.remove-input-field', function () {
+        $(this).parents('tr').remove();
+    });
 </script>
 @endsection

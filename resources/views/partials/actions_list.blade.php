@@ -8,7 +8,7 @@
 				<img class="card-img-top img-fluid" align="center" src="{{$actions[$j]->avatar}}" alt="Card image cap">
 				<div class="card-block">
 					<div class="row" align="center" style="margin-top: 10px">
-						<div class="col-md-10">
+						<div class="col-md-12">
 							@foreach ($actions[$j]->actionTag as $tag)
 								<span class="tag tag-default"> 
 									<a href="{{ route('actionTag', ['tag' => $tag->tag]) }}" style="text-decoration: none; color:aliceblue">{{$tag->tag->name}}</a>

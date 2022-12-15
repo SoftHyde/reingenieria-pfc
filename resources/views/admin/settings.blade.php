@@ -100,16 +100,10 @@
 			</h4>
 			<div class="row">
 				<div class="col-md-6" id="GraficoAcciones">
-					Propuestas, comentarios y calificaciones publicadas por mes:
-					<div id="myfirstchart" style="height: 250px;"></div>
-				</div>
-				<div class="col-md-6" id="GraficoProyectos">
-					Proyectos, articulos y comentarios publicados por mes:
-					<div id="mythirdchart" style="height: 250px;"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6" align="center">
+					<div class="row">
+						Propuestas, comentarios y calificaciones publicadas por mes:
+						<div id="myfirstchart" style="height: 250px;"></div>
+					</div>
 					<div class="row">
 						<div class="col-md-3 col-md-offset-2" align="right">
 							Meses:
@@ -124,7 +118,11 @@
 				   		</div>
 					</div>
 				</div>
-				<div class="col-md-6" align="center">
+				<div class="col-md-6" id="GraficoProyectos">
+					<div class="row">
+						Proyectos, articulos y comentarios publicados por mes:
+						<div id="mythirdchart" style="height: 250px;"></div>
+					</div>
 					<div class="row">
 						<div class="col-md-3 col-md-offset-2" align="right">
 							Meses:

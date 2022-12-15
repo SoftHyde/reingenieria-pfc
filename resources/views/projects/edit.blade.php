@@ -41,7 +41,7 @@
                     </tr>
                     @foreach ($project->moderator as $moderator)
                         <tr>
-                            <td><input id="admin_email" type="text" name="moderator_email[{{$loop->index}}][moderator_email]"  class="form-control" value="{{ $moderator->user->email }}" required/>
+                            <td><input id="admin_email" type="text" name="moderator_email[{{$loop->index}}][moderator_email]" placeholder="Enter mail" class="form-control" value="{{ $moderator->user->email }}" required/>
                             </td>
                             @if($loop->first)
                             <td><button type="button" name="add" id="dynamic-ar2" class="btn btn-outline-primary">Agregar email</button></td>
@@ -57,10 +57,9 @@
                         <th>Tag</th>
                         <th>Opcion</th>
                     </tr>
-                    
                     @foreach ($project->projectTag as $ptag)
                         <tr>
-                            <td><input id="tags" type="text" name="tag[{{$loop->index}}][tag]"  class="form-control" value="{{ $ptag->tag->name }}" required/>
+                            <td><input id="tags" type="text" name="tag[{{$loop->index}}][tag]" placeholder="Enter tag" class="form-control" value="{{ $ptag->tag->name }}" required/>
                             </td>
                             @if($loop->first)
                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Agregar Tag</button></td>
@@ -144,8 +143,9 @@ $(document).ready(function () {
     $("#dynamic-ar").click(function () {
         ++i;
         $("#dynamicAddRemove").append('<tr><td><input  id="tags" type="text" name="tag[' + i +
-            '][tag]" placeholder="Enter tag" class="form-control" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            '][tag]" placeholder="Enter tag" class="form-control" value="' + document.getElementsByName("tag[0][tag]")[0].value + '" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
+		document.getElementsByName("tag[0][tag]")[0].value = "";
     });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
@@ -158,8 +158,9 @@ $(document).ready(function () {
     $("#dynamic-ar2").click(function () {
         ++j;
         $("#dynamicAddRemove2").append('<tr><td><input id="admin_email" type="text" name="moderator_email[' + j +
-            '][moderator_email]" placeholder="Agregar Email" class="form-control" required/></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            '][moderator_email]" placeholder="Agregar Email" class="form-control" value="' + document.getElementsByName("moderator_email[0][moderator_email]")[0].value + '" required/></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
+		document.getElementsByName("moderator_email[0][moderator_email]")[0].value="";
     });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();

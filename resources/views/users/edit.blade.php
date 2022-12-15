@@ -56,6 +56,17 @@
 			    	<input type="email" name="email" value="{{$user->email}}" class="form-control">
 			  	</div>
 
+				<div class="form-group alert alert-success">
+					<div id="create-proposals">
+						<label for="checkbox">¿Desea recibir notificaciones via Email?</label>
+						{{-- value="{{$user->email}}" --}}
+						<div class="radio">
+							<label class="radio-inline"><input type="radio" name="allow_mailNotif" value="1" id="yes-mail" checked>Si</label>
+							<label class="radio-inline"><input type="radio" name="allow_mailNotif" value="0" id="no-mail">No</label>
+						</div>
+					</div>
+				</div>
+
 			  	<div class="form-group">
 					<label class="control-label">Distrito <a href="https://www.google.com/maps/d/u/0/viewer?ll=-31.552792999999998%2C-60.70838900000001&spn=0.102398%2C0.222473&t=m&msa=0&z=12&source=embed&ie=UTF8&iwloc=0004da28cd59655d04330&mid=1LGfSSm_S_DPnLAWRYg25YLj_CDM" target="_blank">(Ver mapa)</a></label>
 					<br>

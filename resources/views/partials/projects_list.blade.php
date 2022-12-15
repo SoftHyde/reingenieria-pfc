@@ -13,7 +13,7 @@
 						</div>
 					</div>
 					<div class="row" align="center" style="margin-top: 10px">
-						<div class="col-md-10">
+						<div class="col-md-12">
 							@foreach ($projects[$j]->projectTag as $tag)
 								<span class="tag tag-default"> 
 									<a href="{{ route('projectTag', ['tag' => $tag->tag]) }}" style="text-decoration: none; color:white">{{$tag->tag->name}}</a>
