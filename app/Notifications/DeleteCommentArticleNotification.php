@@ -16,10 +16,11 @@ class DeleteCommentArticleNotification extends Notification
      *
      * @return void
      */
-    public function __construct($article,$numero)
+    public function __construct($article,$numero,$user)
     {
         $this->article=$article;
         $this->numero = $numero;
+        $this->user = $user;
     }
 
     /**
@@ -29,8 +30,13 @@ class DeleteCommentArticleNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -41,10 +47,12 @@ class DeleteCommentArticleNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $article=$this->article->id;
+        $numero=$this->numero;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->line('Su comentario ha sido eliminado por un administrador.')
+                ->action('Vealo aqui', url('article/'.$article.'/'.$numero))
+                ->line('Gracias!');
     }
 
     /**

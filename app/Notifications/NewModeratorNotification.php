@@ -17,9 +17,10 @@ class NewModeratorNotification extends Notification
      *
      * @return void
      */
-    public function __construct(Project $project)
+    public function __construct(Project $project,$user)
     {
         $this->project=$project;
+        $this->user=$user;
     }
 
 
@@ -30,8 +31,13 @@ class NewModeratorNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -42,11 +48,14 @@ class NewModeratorNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $project_id= $this->project->id;
+        $name=$this->project->name;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->line('Ha sido elegido como moderador del proyecto '.$name.' .')
+                ->action('Vealo aqui', url('proyectos/'.$project_id))
+                ->line('Gracias!');
     }
+
 
     /**
      * Get the array representation of the notification.

@@ -16,10 +16,11 @@ class SupportCommentProjectNotification extends Notification
      *
      * @return void
      */
-    public function __construct($name,Project $project)
+    public function __construct($name,Project $project,$user)
     {
         $this->project=$project;
         $this->name = $name;
+        $this->user = $user;
     }
 
     /**
@@ -29,8 +30,13 @@ class SupportCommentProjectNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -41,10 +47,11 @@ class SupportCommentProjectNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $project=$this->project->id;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Su comentario ha recibido un apoyo.')
+                    ->action('Vealo aqui', url('proyectos/'.$project))
+                    ->line('Gracias!');
     }
 
     /**

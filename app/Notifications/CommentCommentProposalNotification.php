@@ -17,10 +17,11 @@ class CommentCommentProposalNotification extends Notification
      *
      * @return void
      */
-    public function __construct($name,Proposal $proposal)
+    public function __construct($name,Proposal $proposal,$user)
     {
         $this->proposal=$proposal;
         $this->name = $name;
+        $this->user=$user;
     }
 
     /**
@@ -30,8 +31,13 @@ class CommentCommentProposalNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -42,10 +48,11 @@ class CommentCommentProposalNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $proposal=$this->proposal->id;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->line('Su comentario recibio una respuesta.')
+                ->action('Vealo aqui', url('propuesta/'.$proposal))
+                ->line('Gracias!');
     }
 
     /**

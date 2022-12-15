@@ -98,7 +98,7 @@ class ProjectController extends Controller
         
         foreach ($moderators as $moderator){
          $userM = User::where('id', $moderator->user_id )->first(); 
-         Notification::send($userM,new NewModeratorNotification($project));
+         Notification::send($userM,new NewModeratorNotification($project,$userM));
         }
         foreach ($request->get('tag') as $tag){
             $ptag = Tag::where('name', $tag['tag'] )->first();

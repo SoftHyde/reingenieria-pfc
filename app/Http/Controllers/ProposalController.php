@@ -156,7 +156,7 @@ class ProposalController extends Controller
 
         $owner = User::where('id', $proposal->user_id )->first();
         if(auth()->user()->name != $owner->name){   
-        Notification::send($owner,new SupportProposalNotification(auth()->user()->name,$proposal));
+        Notification::send($owner,new SupportProposalNotification(auth()->user()->name,$proposal,$owner));
         }
 
         return redirect(route('proposal', $proposal->id));

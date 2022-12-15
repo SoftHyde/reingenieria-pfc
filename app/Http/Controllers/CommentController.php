@@ -61,7 +61,7 @@ class CommentController extends Controller
             $father = Comment::where('id', $comment->father_id )->first();
             $owner = User::where('id', $father->user_id )->first();
             if(auth()->user()->name != $owner->name){
-                Notification::send($owner,new CommentCommentProposalNotification(auth()->user()->name,$proposal));
+                Notification::send($owner,new CommentCommentProposalNotification(auth()->user()->name,$proposal,$owner));
             }
         }
         
@@ -70,7 +70,7 @@ class CommentController extends Controller
         auth()->user()->comments()->save($comment);
         $owner = User::where('id', $proposal->user_id )->first();   
         if(auth()->user()->name != $owner->name){
-            Notification::send($owner,new CommentProposalNotification(auth()->user()->name,$proposal));
+            Notification::send($owner,new CommentProposalNotification(auth()->user()->name,$proposal,$owner));
         }
     }
 
@@ -108,11 +108,7 @@ class CommentController extends Controller
 
         $comment->reported = $comment->reported + 1;
 
-        if($comment->reported == 2){
-            $action=Action::findOrFail($comment->proposal->action_id);
-            $admin=User::findOrFail($action->admin_id);
-            Notification::send($admin,new CommentReportNotification($comment->user->name,$comment));
-        }
+       
 
         $reported=$comment->report()->pluck('user_id')->toArray();
         $user = auth()->user();
@@ -128,6 +124,12 @@ class CommentController extends Controller
         $report->save();
 
         $comment->save();
+        
+        if($comment->reported == 2){
+            $action=Action::findOrFail($comment->proposal->action_id);
+            $admin=User::findOrFail($action->admin_id);
+            Notification::send($admin,new CommentReportNotification($comment->user->name,$comment,$admin));
+        }
 
         return redirect()->back()
             ->with('alert', "El comentario ha sido denunciado");
@@ -180,7 +182,7 @@ class CommentController extends Controller
         $comment->delete();
         if($user->name != $comment->user_name){
             $owner=User::findOrFail($comment->user_id);
-            Notification::send($owner,new DeleteCommentProposalNotification($proposal_id));
+            Notification::send($owner,new DeleteCommentProposalNotification($proposal_id,$owner));
         }
         return redirect()->route('proposal',$proposal_id)
         ->with('alert', 'El comentario ha sido eliminado con éxito');
@@ -208,7 +210,7 @@ class CommentController extends Controller
         $owner = User::findOrFail($comment->user_id);  
         $proposal = Proposal::findOrFail($comment->proposal_id);  
         if(auth()->user()->name !=$owner->name){
-        Notification::send($owner,new SupportCommentProposalNotification(auth()->user()->name,$proposal));
+        Notification::send($owner,new SupportCommentProposalNotification(auth()->user()->name,$proposal,$owner));
         }
 
         return response()->json($data);

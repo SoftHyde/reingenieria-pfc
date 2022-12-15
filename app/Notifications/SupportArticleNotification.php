@@ -17,11 +17,12 @@ class SupportArticleNotification extends Notification
      *
      * @return void
      */
-    public function __construct($name,$numero,Article $article)
+    public function __construct($name,$numero,Article $article,$user)
     {
         $this->article=$article;
         $this->numero = $numero;
         $this->name = $name;
+        $this->user = $user;
     }
 
     /**
@@ -31,8 +32,13 @@ class SupportArticleNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
-        return ['database','mail'];
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
+        return ['database'];
+        }
     }
 
     /**

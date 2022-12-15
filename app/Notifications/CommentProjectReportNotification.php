@@ -16,10 +16,11 @@ class CommentProjectReportNotification extends Notification
      *
      * @return void
      */
-    public function __construct($name,$comment)
+    public function __construct($name,$comment,$user)
     {
         $this->comment=$comment;
         $this->name = $name;
+        $this->user=$user;
     }
 
     /**
@@ -29,8 +30,13 @@ class CommentProjectReportNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -41,10 +47,12 @@ class CommentProjectReportNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $comment=$this->comment->id;
+        $name=$this->name ;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->line('El usuario ' . $name . ' ha recibido demasiados reportes en su comentario.')
+                ->action('Vealo aqui', url('editar-comentario-projecto/'.$comment))
+                ->line('Gracias!');
     }
 
     /**

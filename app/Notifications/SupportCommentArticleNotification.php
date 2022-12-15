@@ -16,11 +16,12 @@ class SupportCommentArticleNotification extends Notification
      *
      * @return void
      */
-    public function __construct($name,$numero,$article_id)
+    public function __construct($name,$numero,$article_id,$user)
     {
         $this->article_id=$article_id;
         $this->numero = $numero;
         $this->name = $name;
+        $this->user = $user;
     }
 
     /**
@@ -30,8 +31,13 @@ class SupportCommentArticleNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -42,10 +48,12 @@ class SupportCommentArticleNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $article=$this->article_id;
+        $numero=$this->numero;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Su comentario ha recibido un apoyo.')
+                    ->action('Vealo aqui', url('article/'.$article.'/'.$numero))
+                    ->line('Gracias!');
     }
 
     /**

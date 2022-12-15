@@ -98,6 +98,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
+        $user->email_notification=$request->get('allow_mailNotif');
 
         if ($request->get('district')){
             $user->district = $request->get('district');

@@ -34,7 +34,7 @@ class CommentProjectController extends Controller
         $moderators=Moderator::where('project_id', $request->get('project_id'))->get();
         foreach ($moderators as $moderator){
          $user = User::where('id', $moderator->user_id )->first();   
-         Notification::send($user,new CommentProjectNotification(auth()->user()->name,$project));
+         Notification::send($user,new CommentProjectNotification(auth()->user()->name,$project,$user));
         }
     }
 
@@ -95,7 +95,7 @@ class CommentProjectController extends Controller
         $owner = User::findOrFail($comment->user_id);  
         $project = Project::findOrFail($comment->project_id);  
         if(auth()->user()->name !=$owner->name){
-        Notification::send($owner,new SupportCommentProjectNotification(auth()->user()->name,$comment->project));
+        Notification::send($owner,new SupportCommentProjectNotification(auth()->user()->name,$comment->project,$owner));
         }
         return response()->json($data);
     }
@@ -129,7 +129,7 @@ class CommentProjectController extends Controller
         $comment->delete();
         if($user->name != $comment->user_name){
             $owner=User::findOrFail($comment->user_id);
-            Notification::send($owner,new DeleteCommentProjectNotification($project_id));
+            Notification::send($owner,new DeleteCommentProjectNotification($project_id,$owner));
         }
         return redirect()->route('project',$project_id)
         ->with('alert', 'El comentario ha sido eliminado con éxito');
@@ -144,7 +144,7 @@ class CommentProjectController extends Controller
         if($comment->reported == 1){
             $project=Project::findOrFail($comment->project_id);
             $admin=User::findOrFail($project->user_id);
-            Notification::send($admin,new CommentProjectReportNotification($comment->user->name,$comment));
+            Notification::send($admin,new CommentProjectReportNotification($comment->user->name,$comment,$admin));
         }
 
 

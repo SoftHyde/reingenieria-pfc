@@ -61,8 +61,8 @@
 						<label for="checkbox">¿Desea recibir notificaciones via Email?</label>
 						{{-- value="{{$user->email}}" --}}
 						<div class="radio">
-							<label class="radio-inline"><input type="radio" name="allow_mailNotif" value="1" id="yes-mail" checked>Si</label>
-							<label class="radio-inline"><input type="radio" name="allow_mailNotif" value="0" id="no-mail">No</label>
+							<label class="radio-inline"><input type="radio" name="allow_mailNotif" value="1" id="yes-mail">Si</label>
+							<label class="radio-inline"><input type="radio" name="allow_mailNotif" value="0" id="no-mail" checked>No</label>
 						</div>
 					</div>
 				</div>

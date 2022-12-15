@@ -30,7 +30,7 @@ class CommentArticleController extends Controller
         $article=Article::findOrFail($request->get('article_id'));
         $user = User::where('id', $article->user_id )->first();   
         if(auth()->user()->name != $user->name){
-        Notification::send($user,new CommentArticleNotification(auth()->user()->name,$request->get('numero'),$article));
+        Notification::send($user,new CommentArticleNotification(auth()->user()->name,$request->get('numero'),$article,$user));
         }
     }
 
@@ -85,7 +85,7 @@ class CommentArticleController extends Controller
         $user->likeCommentArticle()->attach($comment->id);
         $owner = User::findOrFail($comment->user_id);
         if(auth()->user()->name != $owner->name){
-            Notification::send($owner,new SupportCommentArticleNotification(auth()->user()->name,$request->get('numero'),$comment->article_id));
+            Notification::send($owner,new SupportCommentArticleNotification(auth()->user()->name,$request->get('numero'),$comment->article_id,$owner));
         }
         $data = [
             'comment_id'    => $comment->id,
@@ -131,7 +131,7 @@ class CommentArticleController extends Controller
         $comment->delete();
         if($user->name != $comment->user_name){
             $owner=User::findOrFail($comment->user_id);
-            Notification::send($owner,new DeleteCommentArticleNotification($article,$i));
+            Notification::send($owner,new DeleteCommentArticleNotification($article,$i,$owner));
         }
         return redirect()->route('article',[$comment->article->id,$i])
         ->with('alert', 'El comentario ha sido editado con éxito');
@@ -145,7 +145,7 @@ class CommentArticleController extends Controller
         if($comment->reported == 1){
             $article=Article::findOrFail($comment->article_id);
             $admin=User::findOrFail($article->project->user_id);
-            Notification::send($admin,new CommentArticleReportNotification($comment->user->name,$comment,$numero));
+            Notification::send($admin,new CommentArticleReportNotification($comment->user->name,$comment,$numero,$admin));
         }
 
 

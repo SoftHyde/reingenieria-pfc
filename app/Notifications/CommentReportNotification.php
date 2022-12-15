@@ -16,10 +16,11 @@ class CommentReportNotification extends Notification
      *
      * @return void
      */
-    public function __construct($name,$comment)
+    public function __construct($name,$comment,$user)
     {
         $this->comment=$comment;
         $this->name = $name;
+        $this->user = $user;
     }
     /**
      * Get the notification's delivery channels.
@@ -28,8 +29,13 @@ class CommentReportNotification extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
+        if($this->user->email_notification){
+            return ['database','mail'];
+        }
+        else{
         return ['database'];
+        }
     }
 
     /**
@@ -40,10 +46,12 @@ class CommentReportNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $comment=$this->comment->id;
+        $name=$this->name ;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->line('El usuario ' . $name . ' ha recibido demasiados reportes en su comentario.')
+                ->action('Vealo aqui', url('editar-comentario/'.$comment))
+                ->line('Gracias!');
     }
 
     /**

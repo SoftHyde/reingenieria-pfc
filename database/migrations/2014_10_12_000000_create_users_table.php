@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['general', 'admin', 'action_admin'])->default('general');
             $table->string('registration_token')->nullable();
             $table->longText('ban_reason')->nullable()->default(null);
+            $table->boolean('email_notification')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
