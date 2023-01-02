@@ -33,13 +33,13 @@
        
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6" id="GraficoAcciones">
+<div class="row" style="display: flex; justify-content: center;">
+    <div class="col-md-6" id="GraficoAcciones" >
         <div class="row">
             Usuarios por mes:
             <div id="myfirstchart" style="height: 250px;"></div>
         </div>
-        <div class="row">
+        <div class="row" >
             <div class="col-md-3 col-md-offset-2" align="right">
                 Meses:
             </div>
@@ -62,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" style="display: flex; justify-content: center;">
     <div class="col-md-6">
         Retencion de usuarios:
         <div id="mysecondchart" style="height: 230px;"></div>
