@@ -47,16 +47,16 @@
 					<p>
 						Propuestas publicadas: <strong>{{count($user->proposals)}}</strong>
 						<br>
-						Comentarios realizados: <strong>{{count($user->comments)}}</strong>
+						Comentarios de Propuestas: <strong>{{count($user->comments)}}</strong>
 						<br>
 						Obras calificadas: <strong>{{count($user->ratings)}}</strong>
 					</p>
 				</div>
 				<div class="col-md-6" align="left">
 					<p>
-						Proyectos comentados: <strong>{{count($user->commentProject)}}</strong>
+						Comentarios de Proyectos: <strong>{{count($user->commentProject)}}</strong>
 						<br>
-						Articulos comentados: <strong>{{count($user->commentArticle)}}</strong>
+						Comentarios de Articulos: <strong>{{count($user->commentArticle)}}</strong>
 					</p>
 				</div>
 			</div>
