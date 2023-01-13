@@ -49,7 +49,7 @@
 			<div class="row">
 				<br>
 				<div class="col col-md-3 col-md-offset-3" style="padding-left: 0px;">
-					@if(Auth::check())
+					@if(Auth::check() && $project->countdown()>0)
 					@if($comment->user->name != Auth::user()->name)
 						<a href="{{route('commentproject.report',[$comment->id])}}" 
 						data-toggle="confirmation"
