@@ -37,7 +37,7 @@
 			@include('partials/success')
 		  	<h2>
 				<a href="{{ route('project', ['id' => $project->id]) }}"><small>{{$project->name}}</small> </a> <small> >> Articulo {{$numero}}</small>
-				@if(Gate::allows('edit_article', $article))
+				@if(Gate::allows('edit_article', $article) && $project->countdown()>0)
 					<div class="dropdown pull-right">
 					  <button class="btn btn-modern dropdown-toggle btn-lg" type="button" data-toggle="dropdown">
 					  	<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
